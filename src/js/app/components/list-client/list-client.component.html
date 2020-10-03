@@ -1,0 +1,31 @@
+<div *ngIf="client.length; else loading ">
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>id</th>
+      <th>phone</th>
+      <th>name</th>
+      <th>title</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cl of client; let idx = index">
+      <td>{{idx}}</td>
+      <td>{{cl.id}}</td>
+      <td>{{cl.phone}}</td>
+      <td>{{cl.title}}</td>
+      <td>{{cl.title}}</td>
+      <td>
+        <button>Изменить</button>
+        <button>Удалить</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #loading>
+  <p class="text-center">Идет загрузка...</p>
+</ng-template>

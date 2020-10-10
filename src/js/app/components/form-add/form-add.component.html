@@ -1,1 +1,11 @@
-<p>form-add works!</p>
+<td>-</td>
+<td>-</td>
+<td><input [(ngModel)]="this.client.phone"  placeholder="phone"/></td>
+<td><input [(ngModel)]="this.client.name"   placeholder="name"/></td>
+<td><input [(ngModel)]="this.client.title"   placeholder="title"/></td>
+<td>
+  <button (click)="add()" >Добавить</button>
+  <button (click)="cancel()">Отменить</button>
+
+</td>
+<!--(keypress)="keyEvent($event)-->

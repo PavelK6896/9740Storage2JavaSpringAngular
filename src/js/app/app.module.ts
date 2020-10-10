@@ -9,6 +9,7 @@ import { ListClientComponent } from './components/list-client/list-client.compon
 import { FormAddComponent } from './components/form-add/form-add.component';
 import { FormAmendComponent } from './components/form-amend/form-amend.component';
 import {SharedModule} from "./shared/shared.module";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,11 +20,12 @@ import {SharedModule} from "./shared/shared.module";
     FormAddComponent,
     FormAmendComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    SharedModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        SharedModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

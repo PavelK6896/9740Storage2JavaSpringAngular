@@ -70,7 +70,7 @@ public class ClientController {
             } else {
                 //нет телефона
                 tResponseEntity = ResponseEntity
-                        .status(HttpStatus.NO_CONTENT)
+                        .status(HttpStatus.NO_CONTENT)//204
                         .body("not phone");
             }
         } else {

@@ -1,4 +1,6 @@
+
 <div *ngIf="client.length; else loading ">
+  <button (click)="addButton()">Добавить</button>
   <table>
     <thead>
     <tr>
@@ -11,15 +13,16 @@
     </tr>
     </thead>
     <tbody>
+    <tr app-form-add *ngIf=addFormSee></tr>
     <tr *ngFor="let cl of client; let idx = index">
       <td>{{idx}}</td>
       <td>{{cl.id}}</td>
       <td>{{cl.phone}}</td>
-      <td>{{cl.title}}</td>
+      <td>{{cl.name}}</td>
       <td>{{cl.title}}</td>
       <td>
         <button>Изменить</button>
-        <button>Удалить</button>
+        <button (click)="deleteId(cl.id)">Удалить</button>
       </td>
     </tr>
     </tbody>

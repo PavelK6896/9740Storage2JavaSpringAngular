@@ -1,1 +1,13 @@
-<p>form-amend works!</p>
+<td>-</td>
+<td>-</td>
+<td><input [(ngModel)]="this.clientUpdate.phone"  placeholder="phone"/></td>
+<td><input [(ngModel)]="this.clientUpdate.name"   placeholder="name"/></td>
+<td><input [(ngModel)]="this.clientUpdate.title"   placeholder="title"/></td>
+<td>
+  <button (click)="add()">Изменить</button>
+  <button (click)="cancel()">Отменить</button>
+</td>
+
+
+
+<p>{{clientUpdate.phone}} /////////</p>

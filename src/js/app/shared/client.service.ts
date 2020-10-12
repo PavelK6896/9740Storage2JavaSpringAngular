@@ -11,6 +11,9 @@ export class ClientService {
 
   buttonSubject$ = new Subject<void>();
   postAddClient$ = new Subject<Client>();
+  updateFormClient$ = new Subject<Client>();
+
+  url = `${environment.DbUrl}/api/v1/client`;
 
   constructor(private http: HttpClient) {
   }
@@ -28,10 +31,11 @@ export class ClientService {
     return this.http.delete<void>(`${environment.DbUrl}/api/v1/client/${id}`)
   }
 
+
   //неработет http post
   addClient(client: Client): Observable<Client> {
-    let url = `${environment.DbUrl}/api/v1/client`;
-    fetch(url, {
+
+    fetch(this.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -39,13 +43,14 @@ export class ClientService {
       body: JSON.stringify(client)
     }).then(response => {
       if (response.status == 204) {
+
         return null
       } else if (response.status == 200) {
         return response.json();
       }
     }).then(response => {
       if (response === null) return
-      this.postAddClient$.next( {
+      this.postAddClient$.next({
         id: response.id,
         name: response.name,
         phone: response.phone,
@@ -72,6 +77,28 @@ export class ClientService {
 //-----------
 //      this.http.post(url, client);
 //--------
+    return
+  }
+
+  updateClient(client: any) {
+
+    fetch(this.url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(client)
+    }).then(response => {
+      if (response.status == 204) {
+
+        return null
+      } else if (response.status == 200) {
+        return response.json();
+      }
+    }).then(response => {
+      if (response === null) return
+    })
+
     return
   }
 }

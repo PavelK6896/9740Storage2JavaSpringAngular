@@ -17,6 +17,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
   buttonSubjectSubscription: Subscription
   postAddClientSubscription: Subscription
   addFormSee: boolean = false
+  updateFormSee: boolean = false
 
 
   constructor(private clientService: ClientService) {
@@ -62,6 +63,16 @@ export class ListClientComponent implements OnInit, OnDestroy {
   addButton() {
     this.addFormSee = !this.addFormSee
   }
+
+  updateButton(client: Client) {
+
+    // console.log("updateButton", client)
+    this.updateFormSee = !this.updateFormSee
+    this.clientService.updateFormClient$.next(client)
+  }
+
+
+
 
 
 }

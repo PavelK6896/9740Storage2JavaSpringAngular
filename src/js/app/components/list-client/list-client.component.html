@@ -21,7 +21,7 @@
       <td>{{cl.name}}</td>
       <td>{{cl.title}}</td>
       <td>
-        <button>Изменить</button>
+        <button (click)="updateButton(cl)">Изменить</button>
         <button (click)="deleteId(cl.id)">Удалить</button>
       </td>
     </tr>

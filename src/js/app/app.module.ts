@@ -7,7 +7,7 @@ import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { ClientPageComponent } from './page/client-page/client-page.component';
 import { ListClientComponent } from './components/list-client/list-client.component';
 import { FormAddComponent } from './components/form-add/form-add.component';
-import { FormAmendComponent } from './components/form-amend/form-amend.component';
+
 import {SharedModule} from "./shared/shared.module";
 import {FormsModule} from "@angular/forms";
 
@@ -18,7 +18,6 @@ import {FormsModule} from "@angular/forms";
     ClientPageComponent,
     ListClientComponent,
     FormAddComponent,
-    FormAmendComponent
   ],
     imports: [
         BrowserModule,

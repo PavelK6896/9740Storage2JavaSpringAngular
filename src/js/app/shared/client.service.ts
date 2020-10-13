@@ -11,8 +11,6 @@ export class ClientService {
 
   buttonSubject$ = new Subject<void>();
   postAddClient$ = new Subject<Client>();
-  updateFormClient$ = new Subject<Client>();
-
   url = `${environment.DbUrl}/api/v1/client`;
 
   constructor(private http: HttpClient) {
@@ -44,6 +42,7 @@ export class ClientService {
     }).then(response => {
       if (response.status == 204) {
 
+        console.log("204")
         return null
       } else if (response.status == 200) {
         return response.json();
@@ -91,6 +90,7 @@ export class ClientService {
     }).then(response => {
       if (response.status == 204) {
 
+        console.log("204")
         return null
       } else if (response.status == 200) {
         return response.json();

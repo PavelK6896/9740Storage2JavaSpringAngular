@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ClientService} from "../../shared/client.service";
 import {Subscription} from "rxjs";
 import {Client} from "../../shared/interfaces";
@@ -10,6 +10,9 @@ import {Client} from "../../shared/interfaces";
 })
 export class ListClientComponent implements OnInit, OnDestroy {
 
+  //типы шаблонов
+  @ViewChild('readOnlyTemplate', {static: false}) readOnlyTemplate: TemplateRef<any>;
+  @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>;
 
   client: Client[] = []
   clientSubscription: Subscription
@@ -18,6 +21,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
   postAddClientSubscription: Subscription
   addFormSee: boolean = false
   updateFormSee: boolean = false
+  clientUpdate: Client = {name: "", phone: "", title: ""}
 
 
   constructor(private clientService: ClientService) {
@@ -34,8 +38,6 @@ export class ListClientComponent implements OnInit, OnDestroy {
       .subscribe((client) => this.client.push(client))
   }
 
-
-
   ngOnDestroy(): void {
     if (this.clientSubscription) {
       this.clientSubscription.unsubscribe()
@@ -51,7 +53,6 @@ export class ListClientComponent implements OnInit, OnDestroy {
     }
   }
 
-
   deleteId(id: string) {
     this.deleteSubscription = this.clientService.deleteId(id).subscribe(() => {
       this.client = this.client.filter((cl) => cl.id !== id      )
@@ -59,20 +60,31 @@ export class ListClientComponent implements OnInit, OnDestroy {
     })
   }
 
-
   addButton() {
     this.addFormSee = !this.addFormSee
   }
 
   updateButton(client: Client) {
+    this.clientUpdate = client
+    this.updateFormSee = true
+  }
 
-    // console.log("updateButton", client)
-    this.updateFormSee = !this.updateFormSee
-    this.clientService.updateFormClient$.next(client)
+  cancel() {
+    this.updateFormSee = false
+    this.clientUpdate = {name: "", phone: "", title: ""}
   }
 
 
+  loadTemplate(cl: Client) {
+    if (this.updateFormSee && cl.id == this.clientUpdate.id) {
+      return this.editTemplate;
+    } else {
+      return this.readOnlyTemplate;
+    }
+  }
 
-
-
+  saveButton() {
+    this.clientService.updateClient(this.clientUpdate)
+    this.cancel()
+  }
 }

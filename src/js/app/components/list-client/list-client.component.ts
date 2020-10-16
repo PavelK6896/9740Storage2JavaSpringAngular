@@ -21,6 +21,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
   postAddClientSubscription: Subscription
   addFormSee: boolean = false
   updateFormSee: boolean = false
+  filter: boolean = false
   clientUpdate: Client = {name: "", phone: "", title: ""}
 
 
@@ -55,7 +56,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
   deleteId(id: string) {
     this.deleteSubscription = this.clientService.deleteId(id).subscribe(() => {
-      this.client = this.client.filter((cl) => cl.id !== id      )
+      this.client = this.client.filter((cl) => cl.id !== id)
       // this.alertService.warning('клиент удален')
     })
   }
@@ -74,7 +75,6 @@ export class ListClientComponent implements OnInit, OnDestroy {
     this.clientUpdate = {name: "", phone: "", title: ""}
   }
 
-
   loadTemplate(cl: Client) {
     if (this.updateFormSee && cl.id == this.clientUpdate.id) {
       return this.editTemplate;
@@ -87,4 +87,13 @@ export class ListClientComponent implements OnInit, OnDestroy {
     this.clientService.updateClient(this.clientUpdate)
     this.cancel()
   }
+
+  filterButton() {
+    this.filter = !this.filter
+  }
+
+  filterCancel() {
+    this.filterButton()
+  }
+
 }

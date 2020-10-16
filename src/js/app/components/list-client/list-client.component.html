@@ -1,17 +1,29 @@
 <div *ngIf="client.length; else loading ">
-  <button (click)="addButton()">Добавить</button>
-  <table>
-    <thead>
-    <tr>
-      <th>#</th>
-      <th>id</th>
-      <th>phone</th>
-      <th>name</th>
-      <th>title</th>
-      <th>Действие</th>
+  <table class="table">
+    <thead class="thead-dark">
+    <tr class="fix3">
+      <th scope="col" class="fixId1">
+        <button class="btn btn-primary color6" (click)="addButton()">+</button>
+      </th>
+      <th scope="col" class="fixId1">id</th>
+      <th scope="col" class="fix2">phone</th>
+      <th scope="col" class="fix2">name</th>
+      <th scope="col" class="fix2">title</th>
+      <th scope="col">
+        <button type="button" (click)="filterButton()" class="btn  btn-primary color5">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
+            <path fill-rule="evenodd"
+                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+          </svg>
+        </button>
+      </th>
     </tr>
     </thead>
     <tbody>
+    <ng-template *ngIf="this.filter" [ngTemplateOutlet]="filterForm"></ng-template>
     <tr app-form-add *ngIf=addFormSee></tr>
     <tr *ngFor="let cl of client; let idx = index">
       <ng-template [ngTemplateOutlet]="loadTemplate(cl)"
@@ -29,23 +41,36 @@
 <ng-template #readOnlyTemplate let-cl let-idx="$idx">
   <td>{{idx}}</td>
   <td>{{cl.id}}</td>
-  <td>{{cl.phone}}</td>
-  <td>{{cl.name}}</td>
-  <td>{{cl.title}}</td>
+  <td class="">{{cl.phone}}</td>
+  <td class="">{{cl.name}}</td>
+  <td class="">{{cl.title}}</td>
   <td>
-    <button (click)="updateButton(cl)">Изменить</button>
-    <button (click)="deleteId(cl.id)">Удалить</button>
+    <button class="btn btn-primary fixBtn1 color1" (click)="updateButton(cl)">Изменить</button>
+    <button class="btn btn-primary fixBtn1 color2" (click)="deleteId(cl.id)">Удалить</button>
   </td>
 </ng-template>
 
-<ng-template #editTemplate>
-  <td>-</td>
-  <td>-</td>
-  <td><input [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
-  <td><input [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>
-  <td><input [(ngModel)]="this.clientUpdate.title" placeholder="title"/></td>
+
+<ng-template #editTemplate let-cl let-idx="$idx">
+  <td>{{idx}}</td>
+  <td>{{cl.id}}</td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.title" placeholder="title"/></td>
   <td>
-    <button (click)="saveButton()">Сохранить</button>
-    <button (click)="cancel()">Отменить</button>
+    <button class="btn btn-primary fixBtn1 color3" (click)="saveButton()">Сохранить</button>
+    <button class="btn btn-primary fixBtn1 color4" (click)="cancel()">Отменить</button>
+  </td>
+</ng-template>
+
+<ng-template #filterForm>
+  <td></td>
+  <td></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.title" placeholder="title"/></td>
+  <td>
+    <button class="btn btn-primary fixBtn1 color5">Поиск</button>
+    <button class="btn btn-primary fixBtn1 color4" (click)="filterCancel()">Отменить</button>
   </td>
 </ng-template>

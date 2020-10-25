@@ -23,20 +23,28 @@ export class ListClientComponent implements OnInit, OnDestroy {
   updateFormSee: boolean = false
   filter: boolean = false
   clientUpdate: Client = {name: "", phone: "", title: ""}
-
+  clientFilter: Client = {name: "", phone: "", title: ""}
+  loading: boolean = true
 
   constructor(private clientService: ClientService) {
   }
 
   ngOnInit(): void {
+    this.getAll();
+    //подписался на событие в компоненте
+    this.buttonSubjectSubscription = this.clientService.buttonSubject$.subscribe(() => this.addButton())
+    this.postAddClientSubscription = this.clientService.postAddClient$
+      .subscribe((client) => {
+        this.client.push(client)
+        this.loading = false
+      })
+  }
+
+  getAll() {
     // загрузка клиентов
     this.clientSubscription = this.clientService.getAll().subscribe(client => {
       this.client = client
     })
-    //подписался на событие в компоненте
-    this.buttonSubjectSubscription = this.clientService.buttonSubject$.subscribe(() => this.addButton())
-    this.postAddClientSubscription = this.clientService.postAddClient$
-      .subscribe((client) => this.client.push(client))
   }
 
   ngOnDestroy(): void {
@@ -70,11 +78,13 @@ export class ListClientComponent implements OnInit, OnDestroy {
     this.updateFormSee = true
   }
 
+  //отменяет изменения
   cancel() {
     this.updateFormSee = false
     this.clientUpdate = {name: "", phone: "", title: ""}
   }
 
+  //для формы изменить
   loadTemplate(cl: Client) {
     if (this.updateFormSee && cl.id == this.clientUpdate.id) {
       return this.editTemplate;
@@ -85,6 +95,9 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
   saveButton() {
     this.clientService.updateClient(this.clientUpdate)
+      .then(client => {
+        console.log(client)
+      })
     this.cancel()
   }
 
@@ -93,7 +106,17 @@ export class ListClientComponent implements OnInit, OnDestroy {
   }
 
   filterCancel() {
-    this.filterButton()
+    // this.filterButton() //закрыть форму
+    this.clientFilter = {name: "", phone: "", title: ""}
+    this.getAll()
+  }
+
+  filterSearch() {
+    // загрузка клиентов
+    this.clientService.getFilter(this.clientFilter)
+      .then(client => {
+        this.client = client
+      })
   }
 
 }

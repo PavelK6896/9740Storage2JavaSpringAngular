@@ -18,11 +18,13 @@ export class FormAddComponent implements OnInit {
   }
 
   cancel() {
-    this.clientService.buttonSubject$.next()
+    this.client = {name: "", phone: "", title: ""}
+    // this.clientService.buttonSubject$.next() //закрыть форму
   }
 
   add() {
-    console.log("add ", this.client)
-    this.clientService.addClient(this.client)
+    this.clientService.addClient(this.client).then(client => {
+      console.log(client)
+    })
   }
 }

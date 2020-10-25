@@ -1,4 +1,4 @@
-<div *ngIf="client.length; else loading ">
+<div *ngIf="this.loading else loading ">
   <table class="table">
     <thead class="thead-dark">
     <tr class="fix3">
@@ -66,11 +66,11 @@
 <ng-template #filterForm>
   <td></td>
   <td></td>
-  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
-  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>
-  <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.title" placeholder="title"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.phone" placeholder="phone"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.name" placeholder="name"/></td>
+  <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.title" placeholder="title"/></td>
   <td>
-    <button class="btn btn-primary fixBtn1 color5">Поиск</button>
+    <button class="btn btn-primary fixBtn1 color5" (click)="filterSearch()">Поиск</button>
     <button class="btn btn-primary fixBtn1 color4" (click)="filterCancel()">Отменить</button>
   </td>
 </ng-template>

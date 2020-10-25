@@ -20,7 +20,6 @@ export class ClientService {
     return this.http.get(`${environment.DbUrl}/api/v1/client`)
       //{[key: string]: any} - тип объекта
       .pipe(map((response: { [key: string]: any }) => {
-        console.log("!!!!!!!!!!!!!!!response", response)
         return Object.keys(response).map(key => ({...response[key]}))
       }))
   }
@@ -29,11 +28,8 @@ export class ClientService {
     return this.http.delete<void>(`${environment.DbUrl}/api/v1/client/${id}`)
   }
 
-
-  //неработет http post
-  addClient(client: Client): Observable<Client> {
-
-    fetch(this.url, {
+  addClient(client: Client) {
+    return fetch(this.url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -55,8 +51,54 @@ export class ClientService {
         phone: response.phone,
         title: response.title,
       })
+      return response
     })
+  }
 
+  updateClient(client: any) {
+    return fetch(this.url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(client)
+    }).then(response => {
+      if (response.status == 204) {
+        console.log("204")
+        return null
+      } else if (response.status == 200) {
+        return response.json();
+      }
+    }).then(response => {
+      if (response === null) return;
+      return response;
+    })
+  }
+
+  getFilter(clientFilter) {
+    return fetch(this.url + '/filter', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(clientFilter)
+    }).then(response => {
+      if (response.status == 204) {
+
+        console.log("204")
+        return null
+      } else if (response.status == 200) {
+        return response.json();
+      }
+    }).then(response => {
+      if (response === null) return
+      return response;
+    })
+  }
+}
+
+
+//неработет http post
 //------------------
 //     const headers = new HttpHeaders();
 //     headers.append('Content-Type', 'application/json');
@@ -76,29 +118,3 @@ export class ClientService {
 //-----------
 //      this.http.post(url, client);
 //--------
-    return
-  }
-
-  updateClient(client: any) {
-
-    fetch(this.url, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(client)
-    }).then(response => {
-      if (response.status == 204) {
-
-        console.log("204")
-        return null
-      } else if (response.status == 200) {
-        return response.json();
-      }
-    }).then(response => {
-      if (response === null) return
-    })
-
-    return
-  }
-}

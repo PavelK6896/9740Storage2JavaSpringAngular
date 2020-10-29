@@ -119,4 +119,8 @@ export class ListClientComponent implements OnInit, OnDestroy {
       })
   }
 
+  loadingFile(type) {
+    this.clientService.loadReportFile(type)
+  }
+
 }

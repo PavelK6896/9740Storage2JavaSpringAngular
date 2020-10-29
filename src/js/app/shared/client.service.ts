@@ -95,6 +95,30 @@ export class ClientService {
       return response;
     })
   }
+
+  loadReportFile = (format) => {
+    let fileName = format
+    fetch(this.url + '/' + format)
+      .then(resp => {
+        fileName = resp.headers.get("filename")
+        return resp.blob()
+      })
+      .then(blob => {
+
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = fileName
+        document.body.appendChild(a);
+        a.click();
+
+        a.remove();
+        window.URL.revokeObjectURL(url); //не сохроняеть сылку на файл
+      })
+      .catch(() => alert('error file!'));
+  }
+
 }
 
 

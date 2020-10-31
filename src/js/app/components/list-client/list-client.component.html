@@ -2,8 +2,11 @@
   <table class="table ">
     <thead class="thead-dark">
     <tr class="fix3">
-      <th scope="col" class="fixId1">
-        <button class="btn btn-primary color6" (click)="addButton()">+</button>
+      <th scope="col" class="fix2">
+        <div class="d-flex justify-content-center">
+          <a class="btn btn-primary color6" [href]="this.url"><-</a>
+          <button class="ml-2 btn btn-primary color6" (click)="addButton()">+</button>
+        </div>
       </th>
       <th scope="col" class="fixId1">id</th>
       <th scope="col" class="fix2">phone</th>
@@ -40,7 +43,7 @@
 </ng-template>
 
 <ng-template #readOnlyTemplate let-cl let-idx="$idx">
-  <td>{{idx}}</td>
+  <td class="d-flex justify-content-center">{{idx}}</td>
   <td>{{cl.id}}</td>
   <td class="">{{cl.phone}}</td>
   <td class="">{{cl.name}}</td>
@@ -53,7 +56,7 @@
 
 
 <ng-template #editTemplate let-cl let-idx="$idx">
-  <td>{{idx}}</td>
+  <td class="d-flex justify-content-center">{{idx}}</td>
   <td>{{cl.id}}</td>
   <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
   <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>

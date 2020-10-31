@@ -4,6 +4,7 @@ import app.web.pavelk.storage2.entities.Client;
 import app.web.pavelk.storage2.repositories.ClientRepository;
 import app.web.pavelk.storage2.util.report.ReportXlsxComponent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +23,12 @@ public class ClientService {
 
   public List<Client> getClient() {
     specification = null;
-    return list = clientRepository.findAll();
+    return list = clientRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
   }
 
   public List<Client> getClient(Specification<Client> spec) {
     specification = spec;
-    return list = clientRepository.findAll(spec);
+    return list = clientRepository.findAll(spec, Sort.by(Sort.Direction.ASC, "id"));
   }
 
   @Transactional

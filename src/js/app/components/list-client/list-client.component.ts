@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/cor
 import {ClientService} from "../../shared/client.service";
 import {Subscription} from "rxjs";
 import {Client} from "../../shared/interfaces";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-list-client',
@@ -25,6 +26,8 @@ export class ListClientComponent implements OnInit, OnDestroy {
   clientUpdate: Client = {name: "", phone: "", title: ""}
   clientFilter: Client = {name: "", phone: "", title: ""}
   loading: boolean = true
+  url = `${environment.DbUrl}`
+
 
   constructor(private clientService: ClientService) {
   }

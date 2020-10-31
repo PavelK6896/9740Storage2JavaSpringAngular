@@ -11,13 +11,13 @@ export class ClientService {
 
   buttonSubject$ = new Subject<void>();
   postAddClient$ = new Subject<Client>();
-  url = `${environment.DbUrl}/api/v1/client`;
+  url = `${environment.DbUrl}/storage2/api/v1/client`;
 
   constructor(private http: HttpClient) {
   }
 
   getAll(): Observable<Client[]> {
-    return this.http.get(`${environment.DbUrl}/api/v1/client`)
+    return this.http.get(this.url)
       //{[key: string]: any} - тип объекта
       .pipe(map((response: { [key: string]: any }) => {
         return Object.keys(response).map(key => ({...response[key]}))
@@ -25,7 +25,7 @@ export class ClientService {
   }
 
   deleteId(id: string): Observable<void> {
-    return this.http.delete<void>(`${environment.DbUrl}/api/v1/client/${id}`)
+    return this.http.delete<void>(this.url+`/${id}`)
   }
 
   addClient(client: Client) {

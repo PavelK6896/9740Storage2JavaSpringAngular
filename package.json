@@ -2,7 +2,9 @@
   "name": "storage2",
   "version": "0.0.0",
   "scripts": {
-    "build2": "ng build --watch",
+    "build4":"ng build --prod --build-optimizer=true --baseHref=/storage2/ --deployUrl=/storage2/",
+    "build3":"ng build --baseHref=/storage2/ --deployUrl=/storage2/",
+    "build2": "ng build --watch  --baseHref=/storage2/ --deployUrl=/storage2/",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod --build-optimizer=true",

@@ -9,19 +9,23 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:0}
   jpa:
-    generate-ddl: true
-    show-sql: true
+    #   create
+    generate-ddl: false
+    #    show
+    show-sql: false
     properties:
       hibernate:
+        #        show
+        format_sql: false
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         temp:
           use_jdbc_metadata_defaults: false
+    #   create
+    hibernate:
+      ddl-auto: none
 
   jackson:
     serialization:
       indent_output: true
 
-
-#  resources:
-#    static-locations: file:src/main/resources/static/
 

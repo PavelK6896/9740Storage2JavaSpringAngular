@@ -1,7 +1,7 @@
 server:
   port: ${PORT:8080}
   servlet:
-    context-path:
+    context-path: /storage2/
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -9,13 +9,20 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:0}
   jpa:
-    generate-ddl: true
-    show-sql: true
+#   create
+    generate-ddl: false
+#    show
+    show-sql: false
     properties:
       hibernate:
+#        show
+        format_sql: false
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         temp:
           use_jdbc_metadata_defaults: false
+#   create
+    hibernate:
+      ddl-auto: none
 
   jackson:
     serialization:

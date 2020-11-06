@@ -18,17 +18,16 @@ public class ClientService {
   private final ClientRepository clientRepository;
   private final ReportXlsxComponent reportXlsxComponent;
   Specification<Client> specification = null;
-  List<Client> list = null;
-
+//  List<Client> list = null;
 
   public List<Client> getClient() {
     specification = null;
-    return list = clientRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+    return clientRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
   }
 
   public List<Client> getClient(Specification<Client> spec) {
     specification = spec;
-    return list = clientRepository.findAll(spec, Sort.by(Sort.Direction.ASC, "id"));
+    return clientRepository.findAll(spec, Sort.by(Sort.Direction.ASC, "id"));
   }
 
   @Transactional
@@ -38,13 +37,13 @@ public class ClientService {
   }
 
   public ByteArrayOutputStream getReportXlsx() throws Exception {
-    return reportXlsxComponent.getReportXlsx(isListClientCash());
+    return reportXlsxComponent.getReportXlsx(isSpecificationGetClient());
   }
 
-  //кешировать список клиентов в оперативке
-  public List<Client> isListClientCash() {
-    if (list != null) {
-      return list;
+  //кешировать результаты фильтра в оперативке
+  public List<Client> isSpecificationGetClient() {
+    if (specification != null) {
+      return getClient(specification);
     }
     return getClient();
   }
@@ -60,4 +59,12 @@ public class ClientService {
   public Client save(Client client) {
     return clientRepository.save(client);
   }
+
+//кешировать список клиентов в оперативке
+//  public List<Client> isListClientCash() {
+//    if (list != null) {
+//      return list;
+//    }
+//    return getClient();
+//  }
 }

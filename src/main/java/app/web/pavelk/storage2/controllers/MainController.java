@@ -1,8 +1,10 @@
 package app.web.pavelk.storage2.controllers;
 
 
-import app.web.pavelk.storage2.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import app.web.pavelk.storage2.services.MainService;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,35 +12,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.security.Principal;
 
 @Controller
+@AllArgsConstructor
 public class MainController {
-
-    private UserService userService;
-
-    @Autowired
-    public MainController(UserService userService) {
-        this.userService = userService;
-    }
+    private final MainService mainService;
 
     @GetMapping("/")
     public String homePage(Principal principal) {
-
-        if(principal == null){
-            return "redirect:/login";
-        }
-        return "../static/index";
-
+        return mainService.homePage(principal);
     }
 
     @GetMapping("/admin")
     @ResponseBody
-    public String adminPage() {
-        return "admin";
+    public ResponseEntity<String> adminPage(@NonNull Principal principal) {
+        return mainService.adminPage(principal);
     }
 
     @GetMapping("/user")
     @ResponseBody
-    public String user() {
-        return "user";
+    public ResponseEntity<String> userPage(@NonNull Principal principal) {
+        return mainService.userPage(principal);
     }
 
 }

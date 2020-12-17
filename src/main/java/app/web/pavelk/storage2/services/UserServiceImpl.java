@@ -4,7 +4,7 @@ package app.web.pavelk.storage2.services;
 import app.web.pavelk.storage2.entities.Role;
 import app.web.pavelk.storage2.entities.User;
 import app.web.pavelk.storage2.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,13 +17,9 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
-    private UserRepository userRepository;
-
-    @Autowired
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+@AllArgsConstructor
+public class UserServiceImpl implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Override
     @Transactional

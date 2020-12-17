@@ -1,7 +1,6 @@
 package app.web.pavelk.storage2.repositories;
 
 
-
 import app.web.pavelk.storage2.entities.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

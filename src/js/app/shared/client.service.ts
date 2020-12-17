@@ -29,7 +29,7 @@ export class ClientService {
   }
 
   addClient(client: Client) {
-    return fetch(this.url, {
+    return fetch(this.url + '/add', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -56,7 +56,7 @@ export class ClientService {
   }
 
   updateClient(client: any) {
-    return fetch(this.url, {
+    return fetch(this.url + '/update', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'

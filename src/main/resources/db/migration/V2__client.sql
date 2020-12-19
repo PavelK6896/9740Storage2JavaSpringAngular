@@ -1,4 +1,3 @@
-
 create table clients
 (
     id    bigserial,

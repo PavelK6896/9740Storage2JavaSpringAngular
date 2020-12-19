@@ -9,18 +9,18 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:0}
   jpa:
-#   create
+    #   create
     generate-ddl: false
-#    show
+    #    show
     show-sql: false
     properties:
       hibernate:
-#        show
+        #        show
         format_sql: false
         dialect: org.hibernate.dialect.PostgreSQL95Dialect
         temp:
           use_jdbc_metadata_defaults: false
-#   create
+    #   create
     hibernate:
       ddl-auto: none
 

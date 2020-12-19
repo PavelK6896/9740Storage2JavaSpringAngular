@@ -23,7 +23,7 @@ public class ClientController {
     }
 
     @PostMapping(value = "/filter", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<List<Client>> getClientFilter(@RequestBody @NonNull String filterParam) {
+    public ResponseEntity<?> getClientFilter(@RequestBody @NonNull String filterParam) {
         return clientService.getClientFilter(filterParam);
     }
 

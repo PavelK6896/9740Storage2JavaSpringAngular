@@ -22,9 +22,7 @@ export class FormAddComponent implements OnInit {
         this.clientService.buttonSubject$.next() //закрыть форму
     }
 
-    add() {
-        this.clientService.addClient(this.client).then(client => {
-            console.log(client)
-        })
+    addClient() {
+        this.clientService.addClient(this.client);
     }
 }

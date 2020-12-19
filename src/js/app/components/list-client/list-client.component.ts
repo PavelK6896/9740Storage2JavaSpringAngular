@@ -34,19 +34,10 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.getAll();
-        //подписался на событие в компоненте
         this.buttonSubjectSubscription = this.clientService.buttonSubject$.subscribe(() => this.addButton())
-        this.postAddClientSubscription = this.clientService.postAddClient$
-            .subscribe((client) => {
-                this.client.push(client)
-                this.loading = false
-            })
-    }
-
-    getAll() {
-        // загрузка клиентов
-        this.clientSubscription = this.clientService.getAll().subscribe(client => {
-            this.client = client
+        this.postAddClientSubscription = this.clientService.postAddClient$.subscribe((client) => {
+            this.client.push(client)
+            this.loading = false
         })
     }
 
@@ -65,11 +56,32 @@ export class ListClientComponent implements OnInit, OnDestroy {
         }
     }
 
+    getAll() {
+        this.clientSubscription = this.clientService.getAll().subscribe(response => {
+            this.client = response.body
+        })
+    }
+
     deleteId(id: string) {
         this.deleteSubscription = this.clientService.deleteId(id).subscribe(() => {
             this.client = this.client.filter((cl) => cl.id !== id)
             // this.alertService.warning('клиент удален')
         })
+    }
+
+    updateClient() {
+        this.clientService.updateClient(this.clientUpdate)
+            .subscribe(response => {
+                if (response.status == 201) {
+
+                }
+            }, error => {
+                if (error.status == 400) {
+                    //   this.alertService.warning(error.error)
+                }
+            })
+
+        this.cancel()
     }
 
     addButton() {
@@ -79,6 +91,18 @@ export class ListClientComponent implements OnInit, OnDestroy {
     updateButton(client: Client) {
         this.clientUpdate = client
         this.updateFormSee = true
+    }
+
+    filterSearch() {
+        this.clientService.getFilter(this.clientFilter).subscribe(response => {
+            if (response.status == 200) {
+                this.client = response.body
+            }
+        }, error => {
+            if (error.status == 400) {
+                //   this.alertService.warning(error.error)
+            }
+        })
     }
 
     //отменяет изменения
@@ -96,34 +120,17 @@ export class ListClientComponent implements OnInit, OnDestroy {
         }
     }
 
-    saveButton() {
-        this.clientService.updateClient(this.clientUpdate)
-            .then(client => {
-                console.log(client)
-            })
-        this.cancel()
-    }
-
-    filterButton() {
-        this.filter = !this.filter
-    }
-
     filterCancel() {
         this.filterButton() //закрыть форму
         this.clientFilter = {name: "", phone: "", title: ""}
         this.getAll()
     }
 
-    filterSearch() {
-        // загрузка клиентов
-        this.clientService.getFilter(this.clientFilter)
-            .then(client => {
-                this.client = client
-            })
+    loadReportFile(format: string) {
+        this.clientService.loadReportFile(format)
     }
 
-    loadingFile(type) {
-        this.clientService.loadReportFile(type)
+    filterButton() {
+        this.filter = !this.filter
     }
-
 }

@@ -9,20 +9,16 @@ create table clients
 
 
 insert into clients (phone, name, title)
-values ('7920887', 'Vasy', 'ooo company 12414'),
-       ('79208891', 'Valentin', 'ooo company 342324'),
-       ('79208892', 'Valentin', 'ooo eee 342324'),
-       ('79208893', 'Valentin', 'ooo www 342324'),
-       ('79208815323', 'Viktor', 'ooo rr 342324'),
-       ('7920881235', 'Viktor', 'ww asd 342324'),
-       ('79208813245', 'Viktor', 'ee 3'),
-       ('7920881455', 'Vany', 'rr 3'),
-       ('792088123425', 'Vany', 'qq 3'),
-       ('79208813455', 'Vany', 'ssss 3'),
-       ('79208816785', 'Vova', 'hhh 3'),
-       ('792088167865', 'Vova', 'ddddd 3'),
-       ('792089567866', 'Vika', 'sssssss 4');
-
+values ('79201956756', 'Vasy', 'ooo company 1'),
+       ('79208956759', 'Valentin', 'ooo company 8'),
+       ('79238956758', 'Vova', 'ooo company 7'),
+       ('79208956744', 'Valentin', 'ooo company 6'),
+       ('79108956733', 'Viktor', 'ooo company 4'),
+       ('79108956751', 'Vasy', 'ooo company 3'),
+       ('79108946353', 'Viktor', 'ooo company 2'),
+       ('79108956755', 'Vany', 'ooo company 3'),
+       ('79108956435', 'Valentin', 'ooo company 6'),
+       ('79108156723', 'Vany', 'ooo company 5');
 
 
 

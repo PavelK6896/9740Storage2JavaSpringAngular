@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,16 +40,18 @@ public class ClientService {
         return ResponseEntity.ok().body(clientRepository.findAll(specification, Sort.by(Sort.Direction.ASC, "id")));
     }
 
-    public ResponseEntity<List<Client>> getClientFilter(String filterParam) {
+    public ResponseEntity<?> getClientFilter(String filterParam) {
         log.info("getClientFilter");
         try {
             clientFilterSpecification = new ClientFilterSpecification(objectMapper.readValue(filterParam, ClientFilterDto.class));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error filter param");
         }
         return getClient(clientFilterSpecification.getSpec());
     }
 
+    @Transactional
     public ResponseEntity<?> addClient(Client client) {
         log.info("addClient");
         ResponseEntity<?> responseEntity;
@@ -56,41 +59,31 @@ public class ClientService {
             if (client.getPhone() != null) {
                 if (!clientRepository.existsByPhone(client.getPhone())) {
                     client.setId(null);
-                    responseEntity = new ResponseEntity<>(clientRepository.save(client), HttpStatus.OK);
+                    responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(client));
                 } else {
-                    //такой телефон уже есть
-                    responseEntity = ResponseEntity
-                            .status(HttpStatus.NO_CONTENT).contentType(MediaType.TEXT_PLAIN)
-                            .body("phone exists");
+                    responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("phone exists");
                 }
             } else {
-                //нет телефона
-                responseEntity = ResponseEntity
-                        .status(HttpStatus.NO_CONTENT)//204
-                        .body("not phone");
+                responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not phone");
             }
         } else {
-            responseEntity = ResponseEntity
-                    .status(HttpStatus.NO_CONTENT)
-                    .body("not client");
+            responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client");
         }
         return responseEntity;
     }
 
+    @Transactional
     public ResponseEntity<?> updateClient(Client client) {
         log.info("updateClient");
-        ResponseEntity<Client> responseEntity;
+        ResponseEntity<?> responseEntity;
         if (client.getId() != null) {
             if (clientRepository.existsById(client.getId())) {
-                responseEntity = new ResponseEntity<>(clientRepository.save(client), HttpStatus.OK);
-                log.info("update " + client.toString());
+                responseEntity = ResponseEntity.status(HttpStatus.OK).body(clientRepository.save(client));
             } else {
-                responseEntity = new ResponseEntity<>(client, HttpStatus.NOT_FOUND);
-                log.info("not product " + client.toString());
+                responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client" + client.toString());
             }
         } else {
-            responseEntity = new ResponseEntity<>(client, HttpStatus.NO_CONTENT);
-            log.info("not product " + client.toString());
+            responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client" + client.toString());
         }
         return responseEntity;
     }
@@ -98,12 +91,10 @@ public class ClientService {
     public ResponseEntity<?> deleteClient(Long id) {
         log.info("deleteClient");
         if (id != null) {
-            log.info("Delete id " + id);
             clientRepository.deleteById(id);
-            return new ResponseEntity<>(id, HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not id");
-
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not id " + id);
     }
 
     public ResponseEntity<?> getReportXlsx() {

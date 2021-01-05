@@ -3,7 +3,6 @@ package app.web.pavelk.storage2.controllers;
 
 import app.web.pavelk.storage2.services.MainService;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +22,14 @@ public class MainController {
 
     @GetMapping("/admin")
     @ResponseBody
-    public ResponseEntity<String> adminPage(@NonNull Principal principal) {
-        return mainService.adminPage(principal);
+    public ResponseEntity<String> adminPage() {
+        return mainService.adminPage();
     }
 
     @GetMapping("/user")
     @ResponseBody
-    public ResponseEntity<String> userPage(@NonNull Principal principal) {
-        return mainService.userPage(principal);
+    public ResponseEntity<String> userPage() {
+        return mainService.userPage();
     }
 
 }

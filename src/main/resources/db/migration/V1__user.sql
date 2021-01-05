@@ -5,13 +5,14 @@ create table users
     password VARCHAR(80) not null,
     email    VARCHAR(50) not null UNIQUE,
     username VARCHAR(50) not null UNIQUE,
+    status   varchar(255),
     PRIMARY KEY (id)
 );
 
 
-insert into users (password, email, username)
-values ('$2y$12$CFS6mJLQHsUMQnFfr8tAtOjcHAJGQ1JVlq77ZenO3JE2FEa.E2Nfu', 'admin@gmail.com', 'admin'),
-       ('$2y$12$viohTRLsOIqZYszXY4DhSOjuDI/x8T/QZ0mUG0leWCm7N8r0Oi1FK', 'user@gmail.com', 'user');
+insert into users (password, email, username, status)
+values ('{bcrypt}$2y$12$B5le4rjqinV9wp8zFH0a0elodBgl5rQE85xfAWH7WXZ3UtbjyG9vW', 'admin@gmail.com', 'admin', 'ACTIVE'),
+       ('{bcrypt}$2y$12$B5le4rjqinV9wp8zFH0a0elodBgl5rQE85xfAWH7WXZ3UtbjyG9vW', 'user@gmail.com', 'user', 'ACTIVE');
 
 drop table if exists roles;
 create table roles

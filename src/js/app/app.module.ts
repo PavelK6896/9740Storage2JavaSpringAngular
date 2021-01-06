@@ -9,8 +9,9 @@ import {ListClientComponent} from './components/list-client/list-client.componen
 import {FormAddComponent} from './components/form-add/form-add.component';
 
 import {SharedModule} from "./shared/shared.module";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import {LoginPageComponent} from './page/login-page/login-page.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import {HttpClientModule} from "@angular/common/http";
         ClientPageComponent,
         ListClientComponent,
         FormAddComponent,
+        LoginPageComponent,
     ],
     imports: [
         BrowserModule,
@@ -26,6 +28,7 @@ import {HttpClientModule} from "@angular/common/http";
         SharedModule,
         FormsModule,
         HttpClientModule,
+        ReactiveFormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -2,37 +2,37 @@
     <table class="table ">
         <thead class="thead-dark">
         <tr class="fix3">
-            <th scope="col" class="fix2">
+            <th class="fix2" scope="col">
                 <div class="d-flex justify-content-center">
-                    <a class="btn btn-success" [href]="this.url"><-</a>
-                    <button class="ml-2 btn btn-primary color6" (click)="addButton()">+</button>
+                    <a [href]="this.url" class="btn btn-success"><-</a>
+                    <button (click)="addButton()" class="ml-2 btn btn-primary color6">+</button>
                 </div>
             </th>
-            <th scope="col" class="fixId1">id</th>
-            <th scope="col" class="fix2">phone</th>
-            <th scope="col" class="fix2">name</th>
-            <th scope="col" class="fix2">title</th>
+            <th class="fixId1" scope="col">id</th>
+            <th class="fix2" scope="col">phone</th>
+            <th class="fix2" scope="col">name</th>
+            <th class="fix2" scope="col">title</th>
             <th scope="col">
-                <button type="button" (click)="filterButton()" class="btn  btn-primary color5">
-                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor"
+                <button (click)="filterButton()" class="btn  btn-primary color5" type="button">
+                    <svg class="bi bi-search" fill="currentColor" height="1em" viewBox="0 0 16 16" width="1em"
                          xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                              d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"></path>
-                        <path fill-rule="evenodd"
-                              d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"></path>
+                        <path d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                              fill-rule="evenodd"></path>
+                        <path d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                              fill-rule="evenodd"></path>
                     </svg>
                 </button>
-                <button type="button" (click)="loadReportFile('reportXlsx')" class="ml-1 btn btn-primary color6">xlsx
+                <button (click)="loadReportFile('reportXlsx')" class="ml-1 btn btn-primary color6" type="button">xlsx
                 </button>
             </th>
         </tr>
         </thead>
         <tbody>
         <ng-template *ngIf="this.filter" [ngTemplateOutlet]="filterForm"></ng-template>
-        <tr app-form-add *ngIf=addFormSee></tr>
+        <tr *ngIf=addFormSee app-form-add></tr>
         <tr *ngFor="let cl of client; let idx = index">
-            <ng-template [ngTemplateOutlet]="loadTemplate(cl)"
-                         [ngTemplateOutletContext]="{ $idx: idx + 1 ,$implicit: cl}">
+            <ng-template [ngTemplateOutletContext]="{ $idx: idx + 1 ,$implicit: cl}"
+                         [ngTemplateOutlet]="loadTemplate(cl)">
             </ng-template>
         </tr>
         </tbody>
@@ -50,8 +50,8 @@
     <td class="">{{cl.name}}</td>
     <td class="">{{cl.title}}</td>
     <td>
-        <button class="btn btn-primary fixBtn1 color1" (click)="updateButton(cl)">Изменить</button>
-        <button class="btn btn-primary fixBtn1 color2" (click)="deleteId(cl.id)">Удалить</button>
+        <button (click)="updateButton(cl)" class="btn btn-primary fixBtn1 color1">Изменить</button>
+        <button (click)="deleteId(cl.id)" class="btn btn-primary fixBtn1 color2">Удалить</button>
     </td>
 </ng-template>
 
@@ -59,23 +59,23 @@
 <ng-template #editTemplate let-cl let-idx="$idx">
     <td class="d-flex justify-content-center">{{idx}}</td>
     <td>{{cl.id}}</td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.phone" placeholder="phone"/></td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.name" placeholder="name"/></td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientUpdate.title" placeholder="title"/></td>
+    <td><input [(ngModel)]="this.clientUpdate.phone" class="form-control " placeholder="phone" type="text"/></td>
+    <td><input [(ngModel)]="this.clientUpdate.name" class="form-control " placeholder="name" type="text"/></td>
+    <td><input [(ngModel)]="this.clientUpdate.title" class="form-control " placeholder="title" type="text"/></td>
     <td>
-        <button class="btn btn-primary fixBtn1 color3" (click)="updateClient()">Сохранить</button>
-        <button class="btn btn-primary fixBtn1 color4" (click)="cancel()">Отменить</button>
+        <button (click)="updateClient()" class="btn btn-primary fixBtn1 color3">Сохранить</button>
+        <button (click)="cancel()" class="btn btn-primary fixBtn1 color4">Отменить</button>
     </td>
 </ng-template>
 
 <ng-template #filterForm>
     <td></td>
     <td></td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.phone" placeholder="phone"/></td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.name" placeholder="name"/></td>
-    <td><input class="form-control " type="text" [(ngModel)]="this.clientFilter.title" placeholder="title"/></td>
+    <td><input [(ngModel)]="this.clientFilter.phone" class="form-control " placeholder="phone" type="text"/></td>
+    <td><input [(ngModel)]="this.clientFilter.name" class="form-control " placeholder="name" type="text"/></td>
+    <td><input [(ngModel)]="this.clientFilter.title" class="form-control " placeholder="title" type="text"/></td>
     <td>
-        <button class="btn btn-primary fixBtn1 color5" (click)="filterSearch()">Поиск</button>
-        <button class="btn btn-primary fixBtn1 color4" (click)="filterCancel()">Отменить</button>
+        <button (click)="filterSearch()" class="btn btn-primary fixBtn1 color5">Поиск</button>
+        <button (click)="filterCancel()" class="btn btn-primary fixBtn1 color4">Отменить</button>
     </td>
 </ng-template>

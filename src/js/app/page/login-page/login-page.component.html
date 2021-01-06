@@ -1,0 +1,45 @@
+<div style="height: 100vh; background: rgba(61,109,61,0.83); display: flex; justify-content: center; align-items: center">
+
+    <form [formGroup]="loginForm" class=" "
+          style="height: 25vh; background: transparent; display: flex; justify-content: center; flex-direction: column">
+
+        <div
+                [ngClass]="{invalid: loginForm.get('username').touched && loginForm.get('username').invalid}"
+
+                class=" p-1  m-1"
+        >
+            <label for="user_name">login:</label>
+            <input [formControlName]="'username'"
+                   autofocus
+
+                   class="form-control"
+                   id="user_name"
+                   name="user_name"
+                   required
+                   type="text">
+
+        </div>
+
+        <div
+
+                [ngClass]="{invalid: loginForm.get('password').touched && loginForm.get('password').invalid}"
+                class="  p-1 m-1"
+        >
+            <label for="password">password:</label>
+            <input [formControlName]="'password'"
+
+                   class="form-control"
+                   id="password"
+                   name="password"
+                   required
+                   type="password">
+        </div>
+
+        <button
+                (click)="login()" class="btn btn-primary  p-1 mt-3" type="submit">Log In
+        </button>
+    </form>
+
+
+</div>
+

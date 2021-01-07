@@ -13,7 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
     private final MainService mainService;
 
-    @GetMapping({"/", "/login"})
+    @GetMapping("/")
+    public String main() {
+        return "redirect:/ng";
+    }
+
+    @GetMapping({"/ng/login", "/ng"})
     public String homePage() {
         return mainService.homePage();
     }

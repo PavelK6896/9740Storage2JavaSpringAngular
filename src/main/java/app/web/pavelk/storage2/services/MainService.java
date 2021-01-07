@@ -13,7 +13,7 @@ import java.security.Principal;
 public class MainService {
 
     public String homePage() {
-        return "index.html";
+        return "/ng/index.html";
     }
 
     public ResponseEntity<String> adminPage() {

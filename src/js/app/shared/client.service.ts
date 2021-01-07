@@ -20,7 +20,7 @@ export class ClientService {
     getAll(): Observable<HttpResponse<Client[]>> {
         return this.http.get<Client[]>(this.url, {
             headers: new HttpHeaders({'Content-Type': 'application/json'}),
-            withCredentials: true,
+            // withCredentials: true, //not cros *!!!
             observe: 'response'
         });
     }

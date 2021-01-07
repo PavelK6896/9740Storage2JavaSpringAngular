@@ -32,7 +32,7 @@ export class AuthService {
 
     logout(message?: string) {
         this.message = message
-        this.httpClient.post(environment.DbUrl + '/storage2/logout', {responseType: 'text'})
+        this.httpClient.post(environment.DbUrl + '/storage2/logout', {},{responseType: 'text'})
             .subscribe(data => {
                 logUtil("logout+ ", data)
             }, error => {

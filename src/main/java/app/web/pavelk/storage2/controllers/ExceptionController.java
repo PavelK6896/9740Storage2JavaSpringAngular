@@ -35,7 +35,7 @@ public class ExceptionController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> exception3(Exception e) {
         log.error(e.getMessage() + " Ошибка");
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)

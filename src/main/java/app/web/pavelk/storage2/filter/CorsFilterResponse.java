@@ -19,7 +19,7 @@ public class CorsFilterResponse implements Filter {
         HttpServletRequest request2 = (HttpServletRequest) request;
         HttpServletResponse response2 = (HttpServletResponse) response;
 
-        response2.setHeader("EXemPLE", "HEeADERs");
+        response2.setHeader("EXemPLE----!!555555555555!!------------", "HEeADERs");
         response2.setHeader("Access-Control-Allow-Origin", "*");
         response2.setHeader("Access-Control-Allow-Credentials", "true");
         response2.setHeader("Access-Control-Allow-Methods",
@@ -31,10 +31,6 @@ public class CorsFilterResponse implements Filter {
         response2.setHeader("Access-Control-Allow-Headers",
                 "Origin, X-Requested-With, Content-Type, Accept, Key, Authorization");
 
-        if ("OPTIONS".equalsIgnoreCase(request2.getMethod())) {
-            response2.setStatus(HttpServletResponse.SC_OK);
-        } else {
-            chain.doFilter(request, response);
-        }
+        chain.doFilter(request2, response2);
     }
 }

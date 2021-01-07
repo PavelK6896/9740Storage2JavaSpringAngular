@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
             return next.handle(this.addToken(req, jwtToken)).pipe(
                 catchError((error) => {
                     logUtil("intercept ", error)
-                    if (error.status === 401 || error.status === 403) {
+                    if (error.status === 401 || error.status === 403 || error.status === 500) {
                         this.authService.logout("просрочен токен")
                         return
                     }

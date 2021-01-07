@@ -1,9 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../shared/auth.service";
-import {InfoMessage, LoginRequestDto} from "../../shared/interfaces";
+
 import {Subscription, throwError} from "rxjs";
 import {Router} from "@angular/router";
+import {logUtil} from "../../util/log";
+import {InfoMessage, LoginRequestDto} from "../../util/interfaces";
 
 @Component({
     selector: 'app-login-page',
@@ -21,11 +23,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-
-        console.log("11111111111", this.authService.getMessage())
-        console.log(this.authService.getMessage())
-        console.log(this.authService.getMessage())
-        console.log(this.authService.getMessage())
+        logUtil("LoginPageComponent ngOnInit ")
 
         if (this.authService.getMessage() === undefined) {
             this.infoMessage = {
@@ -66,20 +64,13 @@ export class LoginPageComponent implements OnInit, OnDestroy {
 
         this.loginSubscription = this.authService.login(this.loginRequestDto)
             .subscribe(data => {
-
-                console.log("login")
-                console.log(data)
+                logUtil("login+ ", data)
                 this.router.navigateByUrl('/');
-
             }, error => {
-
                 this.infoMessage.flag = true
                 this.infoMessage.message = error.error
-                console.log("login")
-                console.log(error)
-
+                logUtil("login- ", error)
                 throwError(error);
             });
-
     }
 }

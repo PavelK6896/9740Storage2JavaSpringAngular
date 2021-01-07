@@ -37,6 +37,7 @@ public class AuthService {
     }
 
     public ResponseEntity<String> logout() {
+        log.info("logout");
         return ResponseEntity.status(OK).body("Refresh Token Deleted Successfully!");
     }
 }

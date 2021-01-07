@@ -1,6 +1,7 @@
-package app.web.pavelk.storage2.jwt;
+package app.web.pavelk.storage2.filter;
 
 
+import app.web.pavelk.storage2.jwt.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Slf4j
 @Component
 @AllArgsConstructor
-@Slf4j
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
@@ -32,12 +33,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String bearerToken = getJwtFromRequest(request);
-        log.info("bearerToken!!!!!!!!!!!!!!!!!! " + bearerToken);
 
         if (StringUtils.hasText(bearerToken)) {
             try {
-                String username = jwtTokenProvider.getUsername(bearerToken); //ExpiredJwtException
-                if (username != null) { //&& SecurityContextHolder.getContext().getAuthentication() == null
+                String username = jwtTokenProvider.getUsername(bearerToken);
+                if (username != null) {
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = //AuthenticationException
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -55,10 +55,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {
-        log.info("getJwtFromRequest");
         String bearerToken = request.getHeader("Authorization");
-        log.info("Authorization!!!!!!!!!!!!!!!!!! " + bearerToken);
-
+        log.info("Authorization!! " + bearerToken);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }

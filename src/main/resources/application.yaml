@@ -1,7 +1,7 @@
 server:
-  port: ${PORT:8088}
+  port: ${PORT:8080}
   servlet:
-    context-path:
+    context-path: /storage2/
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -28,4 +28,7 @@ spring:
     serialization:
       indent_output: true
 
-
+jwt:
+  header: Authorization
+  secret: sfsdjafjsdsdfksadf
+  expiration: 1

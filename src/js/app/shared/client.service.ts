@@ -1,9 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {Observable, Subject} from "rxjs";
+import {Observable, Subject, Subscription} from "rxjs";
 import {environment} from "../../environments/environment";
 
-import {Client} from "./interfaces";
+
+import {logUtil} from "../util/log";
+import {Client} from "../util/interfaces";
 
 @Injectable({providedIn: 'root'})
 export class ClientService {
@@ -53,12 +55,15 @@ export class ClientService {
                 observe: 'response'
             })
             .subscribe(response => {
+                logUtil("addClient+ ", response )
                 if (response.status == 201) {
                     this.postAddClient$.next(response.body)
                 }
             }, error => {
+                logUtil("addClient- ", error )
                 if (error.status == 400) {
                     //   this.alertService.warning(error.error)
+
                 }
             })
     }
@@ -70,6 +75,7 @@ export class ClientService {
                 responseType: 'blob'
             })
             .subscribe(response => {
+                logUtil("loadReportFile+ ", response )
                 if (response.status == 200) {
                     const url = window.URL.createObjectURL(new Blob(Array.of(response.body)));
                     const a = document.createElement('a');
@@ -79,9 +85,10 @@ export class ClientService {
                     document.body.appendChild(a);
                     a.click();
                     a.remove();
-                    window.URL.revokeObjectURL(url); //не сохроняеть сылку на файл
+                    window.URL.revokeObjectURL(url);
                 }
             }, error => {
+                logUtil("loadReportFile- ", error )
                 if (error.status == 400) {
                     //   this.alertService.warning(error.error)
                 }

@@ -5,6 +5,7 @@ import {Observable, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {catchError} from "rxjs/operators";
 import {AuthService} from "./auth.service";
+import {logUtil} from "../util/log";
 
 
 @Injectable()
@@ -20,6 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
         if (jwtToken) {
             return next.handle(this.addToken(req, jwtToken)).pipe(
                 catchError((error) => {
+                    logUtil("intercept ", error)
                     if (error.status === 401 || error.status === 403) {
                         this.authService.logout("просрочен токен")
                         return
@@ -36,9 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
             headers: req.headers.set('Authorization', 'Bearer ' + jwtToken)
         });
 
-        console.log("addToken")
-        console.log(httpRequest.headers.get('Authorization'))
-
+        logUtil("addToken ", httpRequest.headers.get('Authorization'))
         return httpRequest;
     }
 

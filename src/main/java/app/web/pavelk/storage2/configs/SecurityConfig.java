@@ -1,7 +1,7 @@
 package app.web.pavelk.storage2.configs;
 
 
-import app.web.pavelk.storage2.jwt.JwtRequestFilter;
+import app.web.pavelk.storage2.filter.JwtRequestFilter;
 import app.web.pavelk.storage2.util.NameFile;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

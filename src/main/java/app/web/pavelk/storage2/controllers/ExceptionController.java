@@ -28,10 +28,9 @@ public class ExceptionController {
 
     @ExceptionHandler(JwtValidException.class)
     public ResponseEntity<String> jwtValidException(Exception e) {
-        log.error(e.getMessage() + "Token is invalid:!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.error(e.getMessage() + "Token is invalid:!");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
-
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> exception3(Exception e) {

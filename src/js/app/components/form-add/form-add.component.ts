@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ClientService} from "../../shared/client.service";
-import {Client} from "../../shared/interfaces";
+import {Client} from "../../util/interfaces";
 
 @Component({
     selector: 'tr[app-form-add]',
@@ -19,7 +19,7 @@ export class FormAddComponent implements OnInit {
 
     cancel() {
         this.client = {name: "", phone: "", title: ""}
-        this.clientService.buttonSubject$.next() //закрыть форму
+        this.clientService.buttonSubject$.next() //close form
     }
 
     addClient() {

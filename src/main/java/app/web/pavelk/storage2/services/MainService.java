@@ -12,10 +12,7 @@ import java.security.Principal;
 @Service
 public class MainService {
 
-    public String homePage(Principal principal) {
-//        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().endsWith("anonymous")) {
-//            return "redirect:/login";
-//        }
+    public String homePage() {
         return "index.html";
     }
 

@@ -32,9 +32,7 @@ spring:
   resources:
     static-locations: file:src/main/resources/static/
 
-
-
 jwt:
   header: Authorization
   secret: sfsdjafjsdsdfksadf
-  expiration: 120
+  expiration: 1

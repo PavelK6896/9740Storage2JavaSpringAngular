@@ -11,9 +11,9 @@ const routes: Routes = [
             {path: 'login', component: LoginPageComponent},
             {path: '', redirectTo: '/', pathMatch: 'full', canActivate: [AuthGuard]}, //роут редиректа
             {path: '', component: ClientPageComponent, canActivate: [AuthGuard]},
-
         ]
     }
+
 ];
 
 @NgModule({

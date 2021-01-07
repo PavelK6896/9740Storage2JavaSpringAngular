@@ -13,9 +13,9 @@ import java.security.Principal;
 public class MainService {
 
     public String homePage(Principal principal) {
-        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().endsWith("anonymous")) {
-            return "redirect:/login";
-        }
+//        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString().endsWith("anonymous")) {
+//            return "redirect:/login";
+//        }
         return "index.html";
     }
 

@@ -1,7 +1,7 @@
 package app.web.pavelk.storage2.controllers;
 
 
-import io.jsonwebtoken.ExpiredJwtException;
+import app.web.pavelk.storage2.exceptions.JwtValidException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +26,9 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
-    @ExceptionHandler(ExpiredJwtException.class)
-    public ResponseEntity<String> expiredJwtException(Exception e) {
-        log.error(e.getMessage() + "Token is invalid:");
+    @ExceptionHandler(JwtValidException.class)
+    public ResponseEntity<String> jwtValidException(Exception e) {
+        log.error(e.getMessage() + "Token is invalid:!!!!!!!!!!!!!!!!!!!!!!!!");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 

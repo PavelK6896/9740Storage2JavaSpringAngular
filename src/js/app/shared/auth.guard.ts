@@ -7,12 +7,9 @@ import {AuthService} from "./auth.service";
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
-
     constructor(
         private auth: AuthService,
-        private router: Router,
-    ) {
+        private router: Router) {
     }
 
     canActivate(
@@ -21,21 +18,12 @@ export class AuthGuard implements CanActivate {
         Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
         console.log("AuthGuard")
-        console.log("AuthGuard")
         console.log(this.auth.isLoggedIn())
 
         if (this.auth.isLoggedIn()) {
-            return true // авторизован
+            return true
         } else {
-            // this.auth.logout()
-            this.router.navigate(['/login'], {
-                // info param
-                queryParams: {
-                    loginAgain: true
-                }
-            })
+            this.router.navigateByUrl('/login');
         }
-        // return true;
-
     }
 }

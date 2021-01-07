@@ -4,7 +4,8 @@
         <tr class="fix3">
             <th class="fix2" scope="col">
                 <div class="d-flex justify-content-center">
-                    <a [href]="this.url" class="btn btn-success"><-</a>
+                    <button (click)="logout()" class=" btn btn-primary color1">logout</button>
+                    <a [href]="this.url" class="ml-2 btn btn-success"><-</a>
                     <button (click)="addButton()" class="ml-2 btn btn-primary color6">+</button>
                 </div>
             </th>

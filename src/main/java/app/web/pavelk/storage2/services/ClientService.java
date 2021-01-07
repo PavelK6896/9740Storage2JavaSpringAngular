@@ -2,9 +2,9 @@ package app.web.pavelk.storage2.services;
 
 import app.web.pavelk.storage2.entities.Client;
 import app.web.pavelk.storage2.repositories.ClientRepository;
-import app.web.pavelk.storage2.util.filter.ClientFilterDto;
-import app.web.pavelk.storage2.util.filter.ClientFilterSpecification;
 import app.web.pavelk.storage2.util.report.ReportXlsxComponent;
+import app.web.pavelk.storage2.util.report.filter.ClientFilterDto;
+import app.web.pavelk.storage2.util.report.filter.ClientFilterSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;

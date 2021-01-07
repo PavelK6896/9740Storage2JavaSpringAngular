@@ -1,6 +1,7 @@
 package app.web.pavelk.storage2.jwt;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,15 +32,22 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         String bearerToken = getJwtFromRequest(request);
+        log.info("bearerToken!!!!!!!!!!!!!!!!!! " + bearerToken);
 
         if (StringUtils.hasText(bearerToken)) {
-            String username = jwtTokenProvider.getUsername(bearerToken); //валидация ексепшон ExpiredJwtException
-            if (username != null) { //&& SecurityContextHolder.getContext().getAuthentication() == null
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = //авторизация ексепшон AuthenticationException
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            try {
+                String username = jwtTokenProvider.getUsername(bearerToken); //ExpiredJwtException
+                if (username != null) { //&& SecurityContextHolder.getContext().getAuthentication() == null
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = //AuthenticationException
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+            } catch (ExpiredJwtException e) {
+                log.error("The token is expired");
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "The token is expired");
+                return;
             }
         }
 
@@ -49,6 +57,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private String getJwtFromRequest(HttpServletRequest request) {
         log.info("getJwtFromRequest");
         String bearerToken = request.getHeader("Authorization");
+        log.info("Authorization!!!!!!!!!!!!!!!!!! " + bearerToken);
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);

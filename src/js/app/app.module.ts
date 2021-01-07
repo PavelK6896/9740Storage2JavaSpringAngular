@@ -10,8 +10,9 @@ import {FormAddComponent} from './components/form-add/form-add.component';
 
 import {SharedModule} from "./shared/shared.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {LoginPageComponent} from './page/login-page/login-page.component';
+import {AuthInterceptor} from "./shared/auth.interceptor";
 
 @NgModule({
     declarations: [
@@ -30,7 +31,13 @@ import {LoginPageComponent} from './page/login-page/login-page.component';
         HttpClientModule,
         ReactiveFormsModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

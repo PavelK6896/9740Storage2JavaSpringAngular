@@ -1,23 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {LoginRequestDto} from "./login.request.dto";
 import {AuthService} from "../../shared/auth.service";
+import {InfoMessage, LoginRequestDto} from "../../shared/interfaces";
+import {Subscription, throwError} from "rxjs";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-login-page',
     templateUrl: './login-page.component.html',
     styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
-
+    infoMessage: InfoMessage;
     loginForm: FormGroup;
     loginRequestDto: LoginRequestDto;
+    loginSubscription: Subscription
 
-    constructor(private authService: AuthService) {
+    constructor(private authService: AuthService, private router: Router) {
     }
 
     ngOnInit(): void {
+
+        console.log("11111111111", this.authService.getMessage())
+        console.log(this.authService.getMessage())
+        console.log(this.authService.getMessage())
+        console.log(this.authService.getMessage())
+
+        if (this.authService.getMessage() === undefined) {
+            this.infoMessage = {
+                flag: false,
+                message: ''
+            };
+        } else {
+            this.infoMessage = {
+                flag: true,
+                message: this.authService.getMessage()
+            };
+        }
+
+        if (this.authService.isLoggedIn()) {
+            this.router.navigateByUrl('/');
+        }
 
         this.loginRequestDto = {
             username: '',
@@ -28,19 +52,34 @@ export class LoginPageComponent implements OnInit {
             username: new FormControl('', Validators.required),
             password: new FormControl('', Validators.required)
         });
+    }
 
-
+    ngOnDestroy(): void {
+        if (this.loginSubscription) {
+            this.loginSubscription.unsubscribe()
+        }
     }
 
     login() {
-
         this.loginRequestDto.username = this.loginForm.get('username').value;
         this.loginRequestDto.password = this.loginForm.get('password').value;
 
-        console.log(this.loginRequestDto)
-        console.log(this.loginRequestDto)
+        this.loginSubscription = this.authService.login(this.loginRequestDto)
+            .subscribe(data => {
 
-        // this.authService.login(this.loginRequestDto)
+                console.log("login")
+                console.log(data)
+                this.router.navigateByUrl('/');
+
+            }, error => {
+
+                this.infoMessage.flag = true
+                this.infoMessage.message = error.error
+                console.log("login")
+                console.log(error)
+
+                throwError(error);
+            });
+
     }
-
 }

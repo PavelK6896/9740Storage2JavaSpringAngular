@@ -3,6 +3,7 @@ import {ClientService} from "../../shared/client.service";
 import {Subscription} from "rxjs";
 import {Client} from "../../shared/interfaces";
 import {environment} from "../../../environments/environment";
+import {AuthService} from "../../shared/auth.service";
 
 @Component({
     selector: 'app-list-client',
@@ -29,7 +30,8 @@ export class ListClientComponent implements OnInit, OnDestroy {
     url = `${environment.DbUrl}`
 
 
-    constructor(private clientService: ClientService) {
+    constructor(private clientService: ClientService,
+                private authService: AuthService) {
     }
 
     ngOnInit(): void {
@@ -132,5 +134,9 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
     filterButton() {
         this.filter = !this.filter
+    }
+
+    logout() {
+        this.authService.logout()
     }
 }

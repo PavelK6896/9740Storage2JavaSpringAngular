@@ -1,5 +1,7 @@
-<div style="height: 100vh; background: rgba(61,109,61,0.83); display: flex; justify-content: center; align-items: center">
+<div style="height: 100vh; background: rgba(61,109,61,0.83);
+display: flex; justify-content: center; align-items: center; flex-direction: column">
 
+    <p *ngIf="infoMessage.flag">{{infoMessage.message}}</p>
     <form [formGroup]="loginForm" class=" "
           style="height: 25vh; background: transparent; display: flex; justify-content: center; flex-direction: column">
 

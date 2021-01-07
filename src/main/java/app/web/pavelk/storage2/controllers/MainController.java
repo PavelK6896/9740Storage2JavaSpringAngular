@@ -15,7 +15,7 @@ import java.security.Principal;
 public class MainController {
     private final MainService mainService;
 
-    @GetMapping("/")
+    @GetMapping({"/", "/login"})
     public String homePage(Principal principal) {
         return mainService.homePage(principal);
     }

@@ -2,7 +2,9 @@ package app.web.pavelk.storage2.configs;
 
 
 import app.web.pavelk.storage2.jwt.JwtRequestFilter;
+import app.web.pavelk.storage2.util.NameFile;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
@@ -22,14 +24,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtRequestFilter jwtRequestFilter;
 
+    @Value("${spring.profiles.active:Unknown}")
+    private String activeProfile;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
-                .antMatchers("/**").permitAll()
-                .and()
+                .antMatchers("/login", "/logout", "/").permitAll()
+                .antMatchers(NameFile.getNameStatic(activeProfile)).permitAll()
+                .anyRequest().authenticated().and()
                 .cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ClientService} from "../../shared/client.service";
 import {Subscription} from "rxjs";
-import {environment} from "../../../environments/environment";
 import {AuthService} from "../../shared/auth.service";
 import {logUtil} from "../../util/log";
 import {Client} from "../../util/interfaces";
@@ -30,7 +29,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
     clientUpdate: Client = {name: "", phone: "", title: ""}
     clientFilter: Client = {name: "", phone: "", title: ""}
     loading: boolean = true
-    url = `${environment.DbUrl}`
+    url = ""
 
 
     constructor(private clientService: ClientService,

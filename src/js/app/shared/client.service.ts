@@ -1,36 +1,34 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders, HttpResponse} from "@angular/common/http";
-import {Observable, Subject, Subscription} from "rxjs";
-import {environment} from "../../environments/environment";
+import {Observable, Subject} from "rxjs";
 
 
 import {logUtil} from "../util/log";
 import {Client} from "../util/interfaces";
+import {url1} from "../util/url";
 
 @Injectable({providedIn: 'root'})
 export class ClientService {
 
     buttonSubject$ = new Subject<void>();
     postAddClient$ = new Subject<Client>();
-    url = `${environment.DbUrl}/storage2/api/v1/client`;
 
     constructor(private http: HttpClient) {
     }
 
     getAll(): Observable<HttpResponse<Client[]>> {
-        return this.http.get<Client[]>(this.url, {
+        return this.http.get<Client[]>(url1.getAll, {
             headers: new HttpHeaders({'Content-Type': 'application/json'}),
-            // withCredentials: true, //not cros *!!!
             observe: 'response'
         });
     }
 
     deleteId(id: string): Observable<void> {
-        return this.http.delete<void>(this.url + `/${id}`)
+        return this.http.delete<void>(url1.deleteId + `/${id}`)
     }
 
     updateClient(client: Client): Observable<any> {
-        return this.http.put<Client>(this.url + '/update',
+        return this.http.put<Client>(url1.update,
             client,
             {
                 headers: new HttpHeaders({'Content-Type': 'application/json'}),
@@ -39,7 +37,7 @@ export class ClientService {
     }
 
     getFilter(clientFilter: Client): Observable<any> {
-        return this.http.post<Client[]>(this.url + '/filter',
+        return this.http.post<Client[]>(url1.filter,
             clientFilter,
             {
                 headers: new HttpHeaders({'Content-Type': 'application/json'}),
@@ -48,19 +46,19 @@ export class ClientService {
     }
 
     addClient(client: Client): void {
-        this.http.post<Client>(this.url + '/add',
+        this.http.post<Client>(url1.add,
             client,
             {
                 headers: new HttpHeaders({'Content-Type': 'application/json'}),
                 observe: 'response'
             })
             .subscribe(response => {
-                logUtil("addClient+ ", response )
+                logUtil("addClient+ ", response)
                 if (response.status == 201) {
                     this.postAddClient$.next(response.body)
                 }
             }, error => {
-                logUtil("addClient- ", error )
+                logUtil("addClient- ", error)
                 if (error.status == 400) {
                     //   this.alertService.warning(error.error)
 
@@ -69,13 +67,13 @@ export class ClientService {
     }
 
     loadReportFile(format: string): void {
-        this.http.get(this.url + '/' + format,
+        this.http.get(url1.loadReportFile + '/' + format,
             {
                 observe: 'response',
                 responseType: 'blob'
             })
             .subscribe(response => {
-                logUtil("loadReportFile+ ", response )
+                logUtil("loadReportFile+ ", response)
                 if (response.status == 200) {
                     const url = window.URL.createObjectURL(new Blob(Array.of(response.body)));
                     const a = document.createElement('a');
@@ -88,7 +86,7 @@ export class ClientService {
                     window.URL.revokeObjectURL(url);
                 }
             }, error => {
-                logUtil("loadReportFile- ", error )
+                logUtil("loadReportFile- ", error)
                 if (error.status == 400) {
                     //   this.alertService.warning(error.error)
                 }

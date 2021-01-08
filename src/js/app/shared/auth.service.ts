@@ -2,12 +2,12 @@ import {Injectable} from '@angular/core';
 
 import {Observable, throwError} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
 
 import {map} from "rxjs/operators";
 import {Router} from "@angular/router";
 import {logUtil} from "../util/log";
 import {LoginRequestDto, LoginResponseDto} from "../util/interfaces";
+import {url1} from "../util/url";
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthService {
     }
 
     login(loginRequestDto: LoginRequestDto): Observable<boolean> {
-        return this.httpClient.post<LoginResponseDto>(environment.DbUrl + '/storage2/login', loginRequestDto)
+        return this.httpClient.post<LoginResponseDto>(url1.login, loginRequestDto)
             .pipe(map(data => {
                 logUtil("login map", data)
                 localStorage.setItem('authenticationToken', data.authenticationToken);
@@ -32,7 +32,7 @@ export class AuthService {
 
     logout(message?: string) {
         this.message = message
-        this.httpClient.post(environment.DbUrl + '/storage2/logout', {},{responseType: 'text'})
+        this.httpClient.post(url1.logout, {}, {responseType: 'text'})
             .subscribe(data => {
                 logUtil("logout+ ", data)
             }, error => {

@@ -2,6 +2,7 @@
   "name": "storage2",
   "version": "0.0.0",
   "scripts": {
+    "build prod static file git": "ng build --prod --build-optimizer=true --deployUrl=/9740Storage2JavaSpringAngular/  --baseHref=/9740Storage2JavaSpringAngular/",
     "build prod static file": "ng build --prod --build-optimizer=true --baseHref=/storage2/ng/ --deployUrl=/storage2/ng/",
     "build dev static file": "ng build --watch  --baseHref=/storage2/ --deployUrl=/storage2/",
     "ng": "ng",

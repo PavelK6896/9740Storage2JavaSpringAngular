@@ -14,10 +14,12 @@ import {InfoMessage, LoginRequestDto} from "../../util/interfaces";
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
 
-    infoMessage: InfoMessage;
-    loginForm: FormGroup;
-    loginRequestDto: LoginRequestDto;
+    infoMessage: InfoMessage
+    loginForm: FormGroup
+    loginRequestDto: LoginRequestDto
     loginSubscription: Subscription
+    loading: boolean = true
+    interval1: number = 20
 
     constructor(private authService: AuthService, private router: Router) {
     }
@@ -62,9 +64,15 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginRequestDto.username = this.loginForm.get('username').value;
         this.loginRequestDto.password = this.loginForm.get('password').value;
 
+        this.loading = false
+        setInterval(() => {
+            --this.interval1
+        }, 1000)
+
         this.loginSubscription = this.authService.login(this.loginRequestDto)
             .subscribe(data => {
                 logUtil("login+ ", data)
+                this.loading = false;
                 this.router.navigateByUrl('/');
             }, error => {
                 this.infoMessage.flag = true

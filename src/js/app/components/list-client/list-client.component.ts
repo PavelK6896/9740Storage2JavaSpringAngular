@@ -28,7 +28,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
     filter: boolean = false
     clientUpdate: Client = {name: "", phone: "", title: ""}
     clientFilter: Client = {name: "", phone: "", title: ""}
-    loading: boolean = true
+    loading: boolean = false
     url = ""
 
 
@@ -37,11 +37,12 @@ export class ListClientComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
+        this.loading = false
         this.getAll();
         this.buttonSubjectSubscription = this.clientService.buttonSubject$.subscribe(() => this.addButton())
         this.postAddClientSubscription = this.clientService.postAddClient$.subscribe((client) => {
             this.client.push(client)
-            this.loading = false
+
         })
     }
 
@@ -70,6 +71,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
         this.clientSubscription = this.clientService.getAll()
             .subscribe(response => {
                 logUtil("getAll+ ", response)
+                this.loading = true
                 this.client = response.body
             }, response => {
                 logUtil("getAll- ", response)

@@ -1,4 +1,4 @@
-<div *ngIf="this.loading else loading ">
+<div>
     <table class="table ">
         <thead class="thead-dark">
         <tr class="fix3">
@@ -28,7 +28,7 @@
             </th>
         </tr>
         </thead>
-        <tbody>
+        <tbody *ngIf="this.loading else loading1">
         <ng-template *ngIf="this.filter" [ngTemplateOutlet]="filterForm"></ng-template>
         <tr *ngIf=addFormSee app-form-add></tr>
         <tr *ngFor="let cl of client; let idx = index">
@@ -40,8 +40,8 @@
     </table>
 </div>
 
-<ng-template #loading>
-    <p class="text-center">Идет загрузка...</p>
+<ng-template #loading1>
+        <div class="loader"></div>
 </ng-template>
 
 <ng-template #readOnlyTemplate let-cl let-idx="$idx">

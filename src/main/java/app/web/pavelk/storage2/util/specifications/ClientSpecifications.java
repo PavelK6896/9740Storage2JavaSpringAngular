@@ -1,4 +1,4 @@
-package app.web.pavelk.storage2.repositories.specifications;
+package app.web.pavelk.storage2.util.specifications;
 
 
 import app.web.pavelk.storage2.entities.Client;

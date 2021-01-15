@@ -1,14 +1,12 @@
 package app.web.pavelk.storage2.services;
 
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
-
-
+@Slf4j
 @Service
 public class MainService {
 

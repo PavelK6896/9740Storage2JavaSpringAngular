@@ -1,4 +1,4 @@
-package app.web.pavelk.storage2.util.report.filter;
+package app.web.pavelk.storage2.dto;
 
 import lombok.Data;
 

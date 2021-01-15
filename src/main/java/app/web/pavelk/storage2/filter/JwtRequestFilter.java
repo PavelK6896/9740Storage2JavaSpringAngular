@@ -1,7 +1,7 @@
 package app.web.pavelk.storage2.filter;
 
 
-import app.web.pavelk.storage2.jwt.JwtTokenProvider;
+import app.web.pavelk.storage2.security.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionController {
 
-
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> authenticationException(Exception e) {
         SecurityContextHolder.clearContext();
@@ -33,33 +32,31 @@ public class ExceptionController {
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> exception3(Exception e) {
+    public ResponseEntity<String> illegalArgumentException(Exception e) {
         log.error(e.getMessage() + " Ошибка");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> exception4(Exception e) {
+    public ResponseEntity<String> badCredentialsException(Exception e) {
         log.error(e.getMessage() + " Неверный логин или пароль");
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<String> exception7(Exception e) {
+    public ResponseEntity<String> usernameNotFoundException(Exception e) {
         log.error(e.getMessage() + " пользователь не найден");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<String> exception9(Exception e) {
+    public ResponseEntity<String> nullPointerException(Exception e) {
         log.error(e.getMessage() + " данные не найдены");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> exception11(Exception e) {
+    public ResponseEntity<String> methodArgumentNotValidException(Exception e) {
         log.error(e.getMessage() + " ошибка параметры");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }

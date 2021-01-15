@@ -3,7 +3,7 @@ package app.web.pavelk.storage2.services;
 
 import app.web.pavelk.storage2.dto.LoginRequestDto;
 import app.web.pavelk.storage2.dto.LoginResponseDto;
-import app.web.pavelk.storage2.jwt.JwtTokenProvider;
+import app.web.pavelk.storage2.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

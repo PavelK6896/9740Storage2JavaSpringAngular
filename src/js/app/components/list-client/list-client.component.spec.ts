@@ -1,8 +1,8 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {ListClientComponent} from "./list-client.component";
-import {ClientService} from "../../shared/client.service";
 import {HttpClientModule} from "@angular/common/http";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
+import {ClientService} from "../../service/client.service";
 
 describe('ListClientComponent 4', () => {
     let component: ListClientComponent;

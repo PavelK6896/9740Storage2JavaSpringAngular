@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {FormAddComponent} from "./form-add.component";
-import {ClientService} from "../../shared/client.service";
 import {HttpClientModule} from "@angular/common/http";
+import {ClientService} from "../../service/client.service";
 
 describe('FormAddComponent 5', () => {
     let component: FormAddComponent;

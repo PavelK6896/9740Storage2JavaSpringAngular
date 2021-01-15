@@ -13,7 +13,7 @@ import java.util.List;
 import static org.apache.poi.ss.usermodel.HorizontalAlignment.CENTER;
 
 @Component
-public class ReportXlsxComponent {
+public class FileXlsxComponent {
 
     public ByteArrayOutputStream getReportXlsx(List<Client> client) throws IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

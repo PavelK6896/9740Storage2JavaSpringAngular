@@ -1,8 +1,8 @@
-package app.web.pavelk.storage2.jwt;
+package app.web.pavelk.storage2.security;
 
 
 import app.web.pavelk.storage2.dto.LoginResponseDto;
-import app.web.pavelk.storage2.services.SecurityUserImplements;
+import app.web.pavelk.storage2.dto.SecurityUserImplements;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -12,12 +12,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Base64;
-
-import static java.util.Date.from;
 
 @Component
 @RequiredArgsConstructor
@@ -26,11 +22,8 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    @Value("${jwt.header}")
-    private String authorizationHeader;
-
     @Value("${jwt.expiration}")
-    private long validityInMilliseconds;
+    private long exp;
 
     @PostConstruct
     protected void init() {
@@ -43,16 +36,17 @@ public class JwtTokenProvider {
         Claims claims = Jwts.claims().setSubject(principalUser.getUsername());
         claims.put("role", principalUser.getAuthorities().toString());
 
-        LocalDateTime localDateTime = LocalDateTime.now().plusMinutes(validityInMilliseconds);
+        LocalDateTime localDateTimeNow = LocalDateTime.now();
+        LocalDateTime localDateTimeNowPlus = localDateTimeNow.plusMinutes(exp);
 
         return LoginResponseDto.builder()
                 .username(principalUser.getUsername())
-                .expiresAt(localDateTime)
+                .expiresAt(localDateTimeNowPlus)
                 .authenticationToken(Jwts.builder()
                         .setClaims(claims)
-                        .setIssuedAt(from(Instant.now()))
+                        .setIssuedAt(java.sql.Timestamp.valueOf(localDateTimeNow))
                         .signWith(SignatureAlgorithm.HS256, secretKey)
-                        .setExpiration(java.sql.Timestamp.valueOf(localDateTime))
+                        .setExpiration(java.sql.Timestamp.valueOf(localDateTimeNowPlus))
                         .compact()).build();
     }
 
@@ -60,7 +54,4 @@ public class JwtTokenProvider {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader(authorizationHeader);
-    }
 }

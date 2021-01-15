@@ -34,5 +34,4 @@ public class MainController {
     public ResponseEntity<String> userPage() {
         return mainService.userPage();
     }
-
 }

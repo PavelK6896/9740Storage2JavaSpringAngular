@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/v1/client")
 @AllArgsConstructor
-@CrossOrigin
 public class ClientController {
 
     private final ClientService clientService;
@@ -43,9 +43,5 @@ public class ClientController {
         return clientService.deleteClient(id);
     }
 
-    @GetMapping(value = "/reportXlsx")
-    public ResponseEntity<?> getReportXlsx() {
-        return clientService.getReportXlsx();
-    }
 
 }

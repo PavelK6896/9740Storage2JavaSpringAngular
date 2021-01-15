@@ -4,8 +4,8 @@ import {Observable, throwError} from "rxjs";
 
 import {Router} from "@angular/router";
 import {catchError} from "rxjs/operators";
-import {AuthService} from "./auth.service";
 import {logUtil} from "../util/log";
+import {AuthService} from "../service/auth.service";
 
 
 @Injectable()

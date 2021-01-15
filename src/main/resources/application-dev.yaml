@@ -36,3 +36,5 @@ jwt:
   header: Authorization
   secret: sfsdjafjsdsdfksadf
   expiration: 1
+
+#debug: true

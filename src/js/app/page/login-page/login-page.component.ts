@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {AuthService} from "../../shared/auth.service";
 
 import {Subscription, throwError} from "rxjs";
 import {Router} from "@angular/router";
 import {logUtil} from "../../util/log";
 import {InfoMessage, LoginRequestDto} from "../../util/interfaces";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
     selector: 'app-login-page',
@@ -19,7 +19,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     loginRequestDto: LoginRequestDto
     loginSubscription: Subscription
     loading: boolean = true
-    interval1: number = 20
+    interval1: number = 30
 
     constructor(private authService: AuthService, private router: Router) {
     }
@@ -72,9 +72,10 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginSubscription = this.authService.login(this.loginRequestDto)
             .subscribe(data => {
                 logUtil("login+ ", data)
-                this.loading = false;
+                this.loading = true;
                 this.router.navigateByUrl('/');
             }, error => {
+                this.loading = true;
                 this.infoMessage.flag = true
                 this.infoMessage.message = error.error
                 logUtil("login- ", error)

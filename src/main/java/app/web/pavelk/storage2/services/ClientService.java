@@ -1,10 +1,9 @@
 package app.web.pavelk.storage2.services;
 
+import app.web.pavelk.storage2.dto.ClientFilterDto;
 import app.web.pavelk.storage2.entities.Client;
 import app.web.pavelk.storage2.repositories.ClientRepository;
-import app.web.pavelk.storage2.util.report.ReportXlsxComponent;
-import app.web.pavelk.storage2.util.report.filter.ClientFilterDto;
-import app.web.pavelk.storage2.util.report.filter.ClientFilterSpecification;
+import app.web.pavelk.storage2.util.specifications.ClientFilterSpecification;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
@@ -12,21 +11,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class ClientService {
     private final ClientRepository clientRepository;
-    private final ReportXlsxComponent reportXlsxComponent;
+
     private final ObjectMapper objectMapper;
     private ClientFilterSpecification clientFilterSpecification = null;
 
@@ -37,7 +34,8 @@ public class ClientService {
     }
 
     public ResponseEntity<List<Client>> getClient(@NonNull Specification<Client> specification) {
-        return ResponseEntity.ok().body(clientRepository.findAll(specification, Sort.by(Sort.Direction.ASC, "id")));
+        return ResponseEntity.ok().body(clientRepository.findAll(specification,
+                Sort.by(Sort.Direction.ASC, "id")));
     }
 
     public ResponseEntity<?> getClientFilter(String filterParam) {
@@ -97,22 +95,6 @@ public class ClientService {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not id " + id);
     }
 
-    public ResponseEntity<?> getReportXlsx() {
-        log.info("getReportXlsx");
-        ResponseEntity<byte[]> responseEntity;
-        try {
-            responseEntity = ResponseEntity
-                    .ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=report1.xlsx")
-                    .header("filename", "report1.xlsx")
-                    .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                    .body(reportXlsxComponent.getReportXlsx(isSpecificationGetClient()).toByteArray());
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.GONE);
-        }
-        return responseEntity;
-    }
 
     public List<Client> isSpecificationGetClient() {
         if (clientFilterSpecification != null) {

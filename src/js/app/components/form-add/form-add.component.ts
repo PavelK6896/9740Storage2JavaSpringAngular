@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {ClientService} from "../../shared/client.service";
 import {Client} from "../../util/interfaces";
+import {ClientService} from "../../service/client.service";
 
 @Component({
     selector: 'tr[app-form-add]',

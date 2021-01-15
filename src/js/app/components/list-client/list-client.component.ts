@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {ClientService} from "../../shared/client.service";
 import {Subscription} from "rxjs";
-import {AuthService} from "../../shared/auth.service";
 import {logUtil} from "../../util/log";
 import {Client} from "../../util/interfaces";
+import {ClientService} from "../../service/client.service";
+import {AuthService} from "../../service/auth.service";
+import {UploadFileService} from "../../service/upload-file.service";
 
 @Component({
     selector: 'app-list-client',
@@ -33,7 +34,9 @@ export class ListClientComponent implements OnInit, OnDestroy {
 
 
     constructor(private clientService: ClientService,
-                private authService: AuthService) {
+                private authService: AuthService,
+                private uploadFileService: UploadFileService,
+    ) {
     }
 
     ngOnInit(): void {
@@ -152,7 +155,7 @@ export class ListClientComponent implements OnInit, OnDestroy {
     }
 
     loadReportFile(format: string) {
-        this.clientService.loadReportFile(format)
+        this.uploadFileService.loadFile(format)
     }
 
     filterButton() {

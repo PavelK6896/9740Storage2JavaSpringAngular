@@ -1,4 +1,4 @@
-package app.web.pavelk.storage2.services;
+package app.web.pavelk.storage2.dto;
 
 import app.web.pavelk.storage2.entities.Status;
 import app.web.pavelk.storage2.entities.User;

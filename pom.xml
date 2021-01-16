@@ -62,6 +62,13 @@
             <optional>true</optional>
         </dependency>
 
+        <!--        pdf-->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
+            <version>5.5.13.2</version>
+        </dependency>
+
         <!--        poi-->
         <dependency>
             <groupId>org.apache.poi</groupId>
@@ -74,6 +81,7 @@
             <version>4.1.2</version>
         </dependency>
 
+        <!--        test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -91,6 +99,19 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
+        </dependency>
+
+        <!--        swagger2-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
         </dependency>
 
 

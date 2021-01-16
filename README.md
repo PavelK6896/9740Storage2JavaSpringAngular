@@ -1,5 +1,9 @@
 # 9740Storage2JavaSpringAngular
-https://pavelk6896.github.io/9740Storage2JavaSpringAngular/
+
+Storage 2 [Storage 2](https://pavelk6896.github.io/9740Storage2JavaSpringAngular/) 
+static server GitHub Pages frontend heroku backend
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 

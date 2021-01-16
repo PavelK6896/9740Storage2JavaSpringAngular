@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/ng/**", "/login", "/logout", "/").permitAll()
 //                .antMatchers("/**").permitAll()
+
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .csrf().disable()

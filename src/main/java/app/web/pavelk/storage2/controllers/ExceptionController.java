@@ -13,6 +13,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.io.IOException;
+
 
 @Slf4j
 @ControllerAdvice
@@ -59,5 +61,11 @@ public class ExceptionController {
     public ResponseEntity<String> methodArgumentNotValidException(Exception e) {
         log.error(e.getMessage() + " ошибка параметры");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<String> iOException(Exception e) {
+        log.error(e.getMessage() + " ошибка записи файла");
+        return ResponseEntity.status(HttpStatus.GONE).body(e.getMessage());
     }
 }

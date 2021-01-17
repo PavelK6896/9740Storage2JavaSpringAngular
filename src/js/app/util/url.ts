@@ -13,3 +13,6 @@ export const url1 = {
     filter: client + `/filter`,
     add: client + `/add`,
 }
+
+
+export const url2 = {urlPK: "https://pavelk.web.app/"}

@@ -13,6 +13,8 @@ import {LoginPageComponent} from './page/login-page/login-page.component';
 import {AuthInterceptor} from "./security/auth.interceptor";
 import {SharedModule} from "./shared.module";
 import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
+import {ToastrModule} from "ngx-toastr";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
     declarations: [
@@ -29,7 +31,9 @@ import {MainLayoutComponent} from "./layout/main-layout/main-layout.component";
         SharedModule,
         FormsModule,
         HttpClientModule,
+        BrowserAnimationsModule,
         ReactiveFormsModule,
+        ToastrModule.forRoot(),
     ],
     providers: [
         {

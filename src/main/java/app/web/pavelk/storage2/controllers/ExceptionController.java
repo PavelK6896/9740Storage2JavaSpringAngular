@@ -1,7 +1,11 @@
 package app.web.pavelk.storage2.controllers;
 
 
+import app.web.pavelk.storage2.exceptions.DownloadFileException;
 import app.web.pavelk.storage2.exceptions.JwtValidException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +17,13 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.io.IOException;
-
 
 @Slf4j
 @ControllerAdvice
+@RequiredArgsConstructor
 public class ExceptionController {
+
+    final ObjectMapper objectMapper;
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<String> authenticationException(Exception e) {
@@ -63,9 +68,17 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
-    @ExceptionHandler(IOException.class)
-    public ResponseEntity<String> iOException(Exception e) {
-        log.error(e.getMessage() + " ошибка записи файла");
-        return ResponseEntity.status(HttpStatus.GONE).body(e.getMessage());
+    @ExceptionHandler(DownloadFileException.class)
+    public ResponseEntity<String> downloadFileException(Exception e) throws JsonProcessingException {
+        log.error(e.getMessage() + " ошибка выгрузки файла");
+//        SecurityUserImplements principal = (SecurityUserImplements) SecurityContextHolder.getContext()
+//                .getAuthentication().getPrincipal();
+//        String stringJson = objectMapper.writeValueAsString(MessageErrorDto
+//                .builder()
+//                .message("Ошибка выгрузки файла")
+//                .localDateTime(LocalDateTime.now())
+//                .role(principal.getAuthorities())
+//                .build());
+        return ResponseEntity.status(HttpStatus.GONE).body("Ошибка выгрузки файла");
     }
 }

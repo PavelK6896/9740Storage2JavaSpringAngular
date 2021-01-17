@@ -22,6 +22,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     interval1: number = 30
 
     constructor(private authService: AuthService, private router: Router) {
+
+
     }
 
     ngOnInit(): void {
@@ -65,6 +67,8 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         this.loginRequestDto.password = this.loginForm.get('password').value;
 
         this.loading = false
+        this.infoMessage.flag = false
+        this.interval1 = 30
         setInterval(() => {
             --this.interval1
         }, 1000)

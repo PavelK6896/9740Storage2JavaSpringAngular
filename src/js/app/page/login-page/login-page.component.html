@@ -2,7 +2,7 @@
 display: flex; justify-content: center; align-items: center; flex-direction: column">
 
     <h5 *ngIf="loading; else loadingTemp"></h5>
-    <p *ngIf="infoMessage.flag">{{infoMessage.message}}</p>
+    <p *ngIf="infoMessage.flag" class="bg-warning p-2 rounded">{{infoMessage.message}}</p>
     <form [formGroup]="loginForm" class=" "
           style="height: 25vh; background: transparent; display: flex; justify-content: center; flex-direction: column">
         <div
@@ -31,15 +31,14 @@ display: flex; justify-content: center; align-items: center; flex-direction: col
                    type="password">
         </div>
         <button
-                (click)="login()" class="btn btn-primary  p-1 mt-3" type="submit">Log In
+                (click)="login()" class="btn btn-primary  p-1 mt-3" type="submit" [disabled]="loginForm.invalid">Log In
         </button>
     </form>
 </div>
 
 
-
 <ng-template #loadingTemp>
     <div class="loader-small"></div>
-    <span>please wait for the server to wake up</span>
-    <div>{{interval1}} sec</div>
+    <span class="bg-info p-2 rounded">please wait for the server to wake up</span>
+    <div class="bg-info p-2 rounded-circle">{{interval1}} sec</div>
 </ng-template>

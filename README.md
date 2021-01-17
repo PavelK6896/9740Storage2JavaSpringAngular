@@ -3,6 +3,9 @@
 Storage 2 [Storage 2](https://pavelk6896.github.io/9740Storage2JavaSpringAngular/) 
 static server GitHub Pages frontend heroku backend
 
+Storage 2 [Storage 2](https://storage2.herokuapp.com/storage2/) 
+server heroku full
+
 
 ## Development server
 
@@ -14,9 +17,10 @@ run spring boot -D spring.profiles.active=dev (update file to src/main/resources
 download index.html file path to `http://localhost:8080/`.
 
 ## Prod 
-
 Run `ng build --prod --build-optimizer=true` build static file to src/main/resources/static
 mvn package deployment on server file.
 
 or on localhost proxy server
+
+
 

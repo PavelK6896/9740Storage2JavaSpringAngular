@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "build prod static file git": "ng build --prod --build-optimizer=true --deployUrl=/9740Storage2JavaSpringAngular/  --baseHref=/9740Storage2JavaSpringAngular/",
-    "build prod static file": "ng build --prod --build-optimizer=true --baseHref=/storage2/ng/ --deployUrl=/storage2/ng/",
+    "build prod static file heroku": "ng build --prod --build-optimizer=true --baseHref=/storage2/ng/ --deployUrl=/storage2/ng/",
     "build dev static file": "ng build --watch  --baseHref=/storage2/ --deployUrl=/storage2/",
     "ng": "ng",
     "start": "ng serve",
@@ -15,7 +15,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~10.1.3",
+    "@angular/animations": "^10.1.6",
     "@angular/common": "~10.1.3",
     "@angular/compiler": "~10.1.3",
     "@angular/core": "~10.1.3",
@@ -24,12 +24,13 @@
     "@angular/platform-browser-dynamic": "~10.1.3",
     "@angular/router": "~10.1.3",
     "bootstrap": "^4.5.3",
+    "ngx-toastr": "^13.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.1001.3",
+    "@angular-devkit/build-angular": "^0.1100.7",
     "@angular/cli": "~10.1.3",
     "@angular/compiler-cli": "~10.1.3",
     "@types/jasmine": "~3.5.0",
@@ -43,7 +44,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
-    "lite-server": "^2.5.4",
+    "lite-server": "^2.6.1",
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

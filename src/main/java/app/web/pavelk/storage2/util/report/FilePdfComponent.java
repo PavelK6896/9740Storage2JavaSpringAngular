@@ -3,6 +3,7 @@ package app.web.pavelk.storage2.util.report;
 
 import app.web.pavelk.storage2.entities.Client;
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -16,7 +17,7 @@ import java.util.List;
 @Component
 public class FilePdfComponent {
 
-    public ByteArrayOutputStream getReportPdf(List<Client> client) throws Exception {
+    public ByteArrayOutputStream getReportPdf(List<Client> client) throws DocumentException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Document document = new Document();
         PdfWriter.getInstance(document, byteArrayOutputStream);

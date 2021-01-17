@@ -5,6 +5,8 @@ import {Client} from "../../util/interfaces";
 import {ClientService} from "../../service/client.service";
 import {AuthService} from "../../service/auth.service";
 import {UploadFileService} from "../../service/upload-file.service";
+import {url2} from "../../util/url";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
     selector: 'app-list-client',
@@ -30,12 +32,14 @@ export class ListClientComponent implements OnInit, OnDestroy {
     clientUpdate: Client = {name: "", phone: "", title: ""}
     clientFilter: Client = {name: "", phone: "", title: ""}
     loading: boolean = false
-    url = ""
+    loadingFile: boolean = true
+    urlPK = url2.urlPK;
 
 
     constructor(private clientService: ClientService,
                 private authService: AuthService,
                 private uploadFileService: UploadFileService,
+                private toastrService: ToastrService
     ) {
     }
 
@@ -155,7 +159,36 @@ export class ListClientComponent implements OnInit, OnDestroy {
     }
 
     loadReportFile(format: string) {
+        this.loadingFile = false
         this.uploadFileService.loadFile(format)
+            .subscribe(response => {
+                this.loadingFile = true
+                logUtil("loadReportFile+ ", response)
+                if (response.status == 200) {
+                    const url = window.URL.createObjectURL(new Blob(Array.of(response.body)));
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    let fileName = decodeURI(response.headers.get('content-disposition')).split("filename=");
+                    a.download = fileName[1]
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                    this.toastrService.success("Успешно", new Date().toLocaleTimeString(), {
+                        timeOut: 500,
+                    });
+                }
+            }, error => {
+                this.loadingFile = true
+                logUtil("loadReportFile- ", error)
+                new Response(error.error).text().then((response) => {
+                    // let r: MessageErrorDto = JSON.parse(response);
+                    this.toastrService.error(response, new Date().toLocaleTimeString(), {
+                        timeOut: 500,
+                    });
+                })
+            })
     }
 
     filterButton() {

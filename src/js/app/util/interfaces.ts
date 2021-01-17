@@ -24,3 +24,10 @@ export interface InfoMessage {
     flag: boolean;
     message: string;
 }
+
+
+export interface MessageErrorDto {
+    message: string;
+    localDateTime: Date;
+    role: []
+}

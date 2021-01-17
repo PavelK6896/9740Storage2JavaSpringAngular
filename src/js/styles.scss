@@ -2,6 +2,7 @@
 
 @import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
+@import '~ngx-toastr/toastr';
 
 $color1: #1b5bdb;
 $color11: #103980;
@@ -104,11 +105,11 @@ $color66: #360e71;
   border: 5px solid #f3f3f3;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
-  border-top: 5px solid #0079D3;
-  border-bottom: 5px solid #b3c1cb;
+  border-top: 5px solid $color6;
+  border-bottom: 5px solid $color66;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
 }
 
 .loader {

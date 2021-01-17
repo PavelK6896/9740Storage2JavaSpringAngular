@@ -4,9 +4,18 @@
         <tr class="fix3">
             <th class="fix2" scope="col">
                 <div class="d-flex justify-content-center">
-                    <button (click)="logout()" class=" btn btn-primary color1">logout</button>
-                    <a [href]="this.url" class="ml-2 btn btn-success"><-</a>
+                    <a [href]="this.urlPK" class="ml-2 btn btn-success color1">PK</a>
+                    <button (click)="logout()" class="ml-2 btn btn-primary color2">logout</button>
                     <button (click)="addButton()" class="ml-2 btn btn-primary color6">+</button>
+                    <button (click)="filterButton()" class="ml-2 btn btn-primary color5" type="button">
+                        <svg class="bi bi-search" fill="currentColor" height="1em" viewBox="0 0 16 16" width="1em"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
+                                  fill-rule="evenodd"></path>
+                            <path d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
+                                  fill-rule="evenodd"></path>
+                        </svg>
+                    </button>
                 </div>
             </th>
             <th class="fixId1" scope="col">id</th>
@@ -14,21 +23,22 @@
             <th class="fix2" scope="col">name</th>
             <th class="fix2" scope="col">title</th>
             <th scope="col">
-                <button (click)="filterButton()" class="btn  btn-primary color5" type="button">
-                    <svg class="bi bi-search" fill="currentColor" height="1em" viewBox="0 0 16 16" width="1em"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"
-                              fill-rule="evenodd"></path>
-                        <path d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"
-                              fill-rule="evenodd"></path>
-                    </svg>
-                </button>
-                <button (click)="loadReportFile('reportXlsx')" class="ml-1 btn btn-primary color6" type="button">xlsx
-                </button>
-                <button (click)="loadReportFile('reportDocx')" class="ml-1 btn btn-primary color6" type="button">docx
-                </button>
-                <button (click)="loadReportFile('reportPdf')" class="ml-1 btn btn-primary color6" type="button">pdf
-                </button>
+                <div class="d-flex justify-content-center">
+                    <button  *ngIf="loadingFile else loading2" (click)="loadReportFile('reportXlsx')" class="ml-1 btn btn-primary color6" type="button">
+                        xlsx
+                    </button>
+                    <button *ngIf="loadingFile else loading2" (click)="loadReportFile('reportDocx')" class="ml-1 btn btn-primary color6" type="button">
+                        docx
+                    </button>
+                    <button *ngIf="loadingFile else loading2" (click)="loadReportFile('reportPdf')" class="ml-1 btn btn-primary color6" type="button">pdf
+                    </button>
+                    <button *ngIf="loadingFile else loading2" (click)="loadReportFile('reportTxt')" class="ml-1 btn btn-primary color6" type="button">txt
+                    </button>
+                    <button *ngIf="loadingFile else loading2" (click)="loadReportFile('reportXml')" class="ml-1 btn btn-primary color6" type="button">xml
+                    </button>
+                    <button *ngIf="loadingFile else loading2" (click)="loadReportFile('reportOdt')" class="ml-1 btn btn-primary color6" type="button">odt
+                    </button>
+                </div>
             </th>
         </tr>
         </thead>
@@ -46,6 +56,10 @@
 
 <ng-template #loading1>
         <div class="loader"></div>
+</ng-template>
+
+<ng-template #loading2>
+    <div class="loader-small"></div>
 </ng-template>
 
 <ng-template #readOnlyTemplate let-cl let-idx="$idx">

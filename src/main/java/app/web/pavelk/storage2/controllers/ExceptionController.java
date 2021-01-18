@@ -44,11 +44,7 @@ public class ExceptionController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<String> badCredentialsException(Exception e) {
-        log.error(e.getMessage() + " Неверный логин или пароль");
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-    }
+
 
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<String> usernameNotFoundException(Exception e) {
@@ -66,6 +62,14 @@ public class ExceptionController {
     public ResponseEntity<String> methodArgumentNotValidException(Exception e) {
         log.error(e.getMessage() + " ошибка параметры");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+
+    //--
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<String> badCredentialsException(Exception e) {
+        log.error(e.getMessage() + " Неверный логин или пароль");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 
     @ExceptionHandler(DownloadFileException.class)

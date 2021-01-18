@@ -1,13 +1,20 @@
 package app.web.pavelk.storage2.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
 
-@Entity
+
 @Data
+@Entity
+@Builder
 @Table(name = "users")
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

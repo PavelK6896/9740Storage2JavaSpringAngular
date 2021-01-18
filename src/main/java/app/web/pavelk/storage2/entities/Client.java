@@ -1,15 +1,15 @@
 package app.web.pavelk.storage2.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
+
 @Data
+@Entity
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "clients")
 @EqualsAndHashCode(of = {"id"})
 @ToString(of = {"id", "name"})

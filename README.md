@@ -7,20 +7,18 @@ Storage 2 [Storage 2](https://storage2.herokuapp.com/storage2/)
 server heroku full
 
 
-## Development server
+###build:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 
+heroku full:
 
-Run `ng build --watch` build file to src/main/resources/static 
-and 
-run spring boot -D spring.profiles.active=dev (update file to src/main/resources/static)
-download index.html file path to `http://localhost:8080/`.
+- 1 set environment url
+- 2 `"outputPath": "src/main/resources/static/ng/",`
+- 3 scripts run `build prod static file heroku`
+- 4 maven plugin heroku:deploy
 
-## Prod 
-Run `ng build --prod --build-optimizer=true` build static file to src/main/resources/static
-mvn package deployment on server file.
+github page front:
 
-or on localhost proxy server
-
-
-
+- 1 set environment url
+- 2 `"outputPath": "docs",`
+- 3 scripts run `build prod static file git`
+- 4 git push

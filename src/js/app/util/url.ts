@@ -5,7 +5,7 @@ const client = storage + '/api/v1/client'
 
 export const url1 = {
     login: storage + '/login',
-    logout: storage + '/logout',
+    logout: storage + '/logout1',
     getAll: client,
     deleteId: client,
     loadReportFile: storage + '/api/v1/file',

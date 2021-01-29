@@ -21,7 +21,7 @@ public class AuthController {
         return authService.login(loginRequestDto);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/logout1")
     public ResponseEntity<String> logout() {
         return authService.logout();
     }

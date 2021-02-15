@@ -31,4 +31,4 @@ spring:
 jwt:
   header: Authorization
   secret: sfsdjafjsdsdfksadf
-  expiration: 5
+  expiration: 15

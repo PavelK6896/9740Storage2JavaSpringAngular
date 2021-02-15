@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Storage2.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
-public class ClientControllerTest {
+class ClientControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void main1() throws Exception {
+    void main1() throws Exception {
         mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())

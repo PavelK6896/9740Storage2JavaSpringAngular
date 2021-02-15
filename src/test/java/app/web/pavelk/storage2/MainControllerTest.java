@@ -15,13 +15,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Storage2.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
-public class MainControllerTest {
+class MainControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void main1() throws Exception {
+    void main1() throws Exception {
         mockMvc.perform(get("/"))
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
@@ -29,7 +29,7 @@ public class MainControllerTest {
     }
 
     @Test
-    public void homePage1() throws Exception {
+    void homePage1() throws Exception {
         mockMvc.perform(get("/ng/login"))
                 .andDo(print())
                 .andExpect(forwardedUrl("/ng/index.html"));
@@ -41,7 +41,7 @@ public class MainControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
-    public void adminPage1Right() throws Exception {
+    void adminPage1Right() throws Exception {
         mockMvc.perform(
                 get("/admin"))
                 .andDo(print())
@@ -52,7 +52,7 @@ public class MainControllerTest {
 
     @Test
     @WithMockUser(username = "admin", password = "admin", roles = {"ADMIN", "USER"})
-    public void userPage1Right() throws Exception {
+    void userPage1Right() throws Exception {
         mockMvc.perform(
                 get("/user"))
                 .andDo(print())

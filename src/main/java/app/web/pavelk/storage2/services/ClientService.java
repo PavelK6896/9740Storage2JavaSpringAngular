@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -38,61 +39,57 @@ public class ClientService {
                 Sort.by(Sort.Direction.ASC, "id")));
     }
 
-    public ResponseEntity<?> getClientFilter(String filterParam) {
+    public ResponseEntity<List<Client>> getClientFilter(String filterParam) {
         log.info("getClientFilter");
         try {
             clientFilterSpecification = new ClientFilterSpecification(objectMapper.readValue(filterParam, ClientFilterDto.class));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error filter param");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "error filter param");
         }
         return getClient(clientFilterSpecification.getSpec());
     }
 
     @Transactional
-    public ResponseEntity<?> addClient(Client client) {
+    public ResponseEntity<Client> addClient(Client client) {
         log.info("addClient");
-        ResponseEntity<?> responseEntity;
         if (client != null) {
             if (client.getPhone() != null) {
                 if (!clientRepository.existsByPhone(client.getPhone())) {
                     client.setId(null);
-                    responseEntity = ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(client));
+                    return ResponseEntity.status(HttpStatus.CREATED).body(clientRepository.save(client));
                 } else {
-                    responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("phone exists");
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "phone exists");
                 }
             } else {
-                responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not phone");
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not phone");
             }
         } else {
-            responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not client");
         }
-        return responseEntity;
     }
 
     @Transactional
-    public ResponseEntity<?> updateClient(Client client) {
+    public ResponseEntity<Client> updateClient(Client client) {
         log.info("updateClient");
-        ResponseEntity<?> responseEntity;
         if (client.getId() != null) {
             if (clientRepository.existsById(client.getId())) {
-                responseEntity = ResponseEntity.status(HttpStatus.OK).body(clientRepository.save(client));
+                return ResponseEntity.status(HttpStatus.OK).body(clientRepository.save(client));
             } else {
-                responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client" + client.toString());
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not client" + client.toString());
             }
         } else {
-            responseEntity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not client" + client.toString());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not client" + client.toString());
         }
-        return responseEntity;
     }
 
-    public ResponseEntity<?> deleteClient(Long id) {
+    public ResponseEntity<Void> deleteClient(Long id) {
         log.info("deleteClient");
         if (id != null) {
             clientRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(null);
+            return ResponseEntity.status(HttpStatus.OK).build();
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("not id " + id);
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "not id " + id);
     }
 
 

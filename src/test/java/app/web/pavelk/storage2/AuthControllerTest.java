@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = Storage2.class)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc(addFilters = false)
-public class AuthControllerTest {
+class AuthControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -50,7 +50,7 @@ public class AuthControllerTest {
     String password = "asdf!#@!4f324dfsafsdf";
 
     @Test
-    public void login1Right() throws Exception {
+    void login1Right() throws Exception {
         User user = User.builder().password(passwordEncoder.encode(password)).username(username)
                 .status(Status.ACTIVE).email("e").roles(Lists.newArrayList(roleRepository.findAll())).build();
         userRepository.save(user);
@@ -68,7 +68,7 @@ public class AuthControllerTest {
     }
 
     @Test
-    public void login2Wrong() throws Exception {
+    void login2Wrong() throws Exception {
         LoginRequestDto loginRequestDto = LoginRequestDto.builder().username(username).password(password).build();
 
         mockMvc.perform(post("/login")
@@ -82,8 +82,8 @@ public class AuthControllerTest {
 
     //todo удалять refresh toke
     @Test
-    public void logout1Right() throws Exception {
-        mockMvc.perform(post("/logout"))
+    void logout1Right() throws Exception {
+        mockMvc.perform(post("/logout1"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

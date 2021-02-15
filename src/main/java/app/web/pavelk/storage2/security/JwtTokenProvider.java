@@ -37,7 +37,7 @@ public class JwtTokenProvider {
         claims.put("role", principalUser.getAuthorities().toString());
 
         LocalDateTime localDateTimeNow = LocalDateTime.now();
-        LocalDateTime localDateTimeNowPlus = localDateTimeNow.plusMinutes(exp);
+        LocalDateTime localDateTimeNowPlus = localDateTimeNow.plusSeconds(exp);
 
         return LoginResponseDto.builder()
                 .username(principalUser.getUsername())

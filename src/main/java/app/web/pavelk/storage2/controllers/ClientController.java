@@ -23,22 +23,22 @@ public class ClientController {
     }
 
     @PostMapping(value = "/filter", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> getClientFilter(@RequestBody @NonNull String filterParam) {
+    public ResponseEntity<List<Client>> getClientFilter(@RequestBody @NonNull String filterParam) {
         return clientService.getClientFilter(filterParam);
     }
 
     @PostMapping(value = "/add", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> addClient(@RequestBody @NonNull Client client) {
+    public ResponseEntity<Client> addClient(@RequestBody @NonNull Client client) {
         return clientService.addClient(client);
     }
 
     @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<?> updateClient(@RequestBody @NonNull Client client) {
+    public ResponseEntity<Client> updateClient(@RequestBody @NonNull Client client) {
         return clientService.updateClient(client);
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<?> deleteClient(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
         return clientService.deleteClient(id);
     }
 

@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>app.web.pavelk.storage2</groupId>
-    <artifactId>9740Storage2JavaSpringAngular</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>storage2-java</artifactId>
+    <version>1</version>
     <name>9740Storage2JavaSpringAngular</name>
     <description>project storage 2</description>
 

@@ -22,6 +22,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtRequestFilter jwtRequestFilter;
 
+    static final String[] swagger_path = {
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"};
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -30,8 +38,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
                 .antMatchers("/ng/**", "/login", "/logout1", "/").permitAll()
+                .antMatchers(swagger_path).permitAll()
 //                .antMatchers("/**").permitAll()
-
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .csrf().disable()

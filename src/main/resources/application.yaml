@@ -22,7 +22,7 @@ spring:
           use_jdbc_metadata_defaults: false
     #   create
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
 
   jackson:
     serialization:

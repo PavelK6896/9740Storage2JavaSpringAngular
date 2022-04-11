@@ -5,7 +5,6 @@ import app.web.pavelk.storage2.filter.JwtRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,13 +21,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtRequestFilter jwtRequestFilter;
 
-    static final String[] swagger_path = {
-            "/v2/api-docs",
-            "/configuration/ui",
-            "/swagger-resources/**",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**"};
+    public static final String[] swagger_path = {"/v3/api-docs/**", "/swagger-ui/**"};
+    public static final String[] open_path = {"/ng/**", "/login", "/logout1", "/"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -37,9 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("USER")
-                .antMatchers("/ng/**", "/login", "/logout1", "/").permitAll()
+                .antMatchers(open_path).permitAll()
                 .antMatchers(swagger_path).permitAll()
-//                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated().and()
                 .cors().and()
                 .csrf().disable()
@@ -53,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();

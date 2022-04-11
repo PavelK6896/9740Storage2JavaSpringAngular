@@ -6,7 +6,6 @@ import app.web.pavelk.storage2.entities.User;
 import app.web.pavelk.storage2.repositories.RoleRepository;
 import app.web.pavelk.storage2.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -52,7 +53,7 @@ class AuthControllerTest {
     @Test
     void login1Right() throws Exception {
         User user = User.builder().password(passwordEncoder.encode(password)).username(username)
-                .status(Status.ACTIVE).email("e").roles(Lists.newArrayList(roleRepository.findAll())).build();
+                .status(Status.ACTIVE).email("e").roles(new ArrayList<>(roleRepository.findAll())).build();
         userRepository.save(user);
 
         LoginRequestDto loginRequestDto = LoginRequestDto.builder().username(username).password(password).build();
@@ -80,7 +81,6 @@ class AuthControllerTest {
     }
 
 
-    //todo удалять refresh toke
     @Test
     void logout1Right() throws Exception {
         mockMvc.perform(post("/logout1"))

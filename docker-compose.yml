@@ -4,6 +4,8 @@ services:
   postgres14_storage2:
     image: postgres:14
     container_name: postgres14_storage2
+    networks:
+      storage2_net:
     ports:
       - "5432:5432"
     #jdbc:postgres14_storage2://localhost:5432/storage2
@@ -14,5 +16,20 @@ services:
     volumes:
       - "postgres14_storage2_data:/var/lib/postgresql/data"
 
+  storage2s1:
+    image: 'storage2s1'
+    container_name: storage2s1
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres14_storage2:5432/storage2
+    ports:
+      - "8080:8080"
+    networks:
+      storage2_net:
+    depends_on:
+      - postgres14_storage2
+
+networks:
+  storage2_net:
+    driver: bridge
 volumes:
   postgres14_storage2_data:
